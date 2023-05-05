@@ -1,24 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Home on Yolo Notes</title>
-    <link>http://example.org/</link>
-    <description>Recent content in Home on Yolo Notes</description>
+    <title>励志 on Yolo Notes</title>
+    <link>http://example.org/tags/%E5%8A%B1%E5%BF%97/</link>
+    <description>Recent content in 励志 on Yolo Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 02 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>How to enable table of content ?</title>
-      <link>http://example.org/posts/table-of-content/</link>
-      <pubDate>Tue, 02 May 2023 00:00:00 +0000</pubDate>
-      
-      <guid>http://example.org/posts/table-of-content/</guid>
-      <description>Table of content This theme supports displaying table of content in blog posts.
-To enable it, globally set toc to true in config.toml:
-[params] toc = true This will enable table of content for all posts. If you want to enable it for a specific post, add toc = true to the front matter of the post:
---- title: How to enable table of content date: 2023-05-02 toc: true --- </description>
-    </item>
-    
+    <lastBuildDate>Tue, 02 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="http://example.org/tags/%E5%8A%B1%E5%BF%97/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>关于人生发展的28条心得</title>
       <link>http://example.org/posts/%E7%AC%94%E8%AE%B0%E5%85%B3%E4%BA%8E%E4%BA%BA%E7%94%9F%E5%8F%91%E5%B1%95%E7%9A%8428%E6%9D%A1%E5%BF%83%E5%BE%97/</link>
@@ -41,35 +29,6 @@ To enable it, globally set toc to true in config.toml:
 鲁国之法，鲁人为人臣妾于诸侯、有能赎之者，取其金于府。子贡赎鲁人于诸侯，来而让不取其金。孔子曰：“赐失之矣。自今以往，鲁人不赎人矣。取其金则无损于行，不取其金则不复赎人矣。”子路拯溺者，其人拜之以牛，子路受之。孔子曰：“鲁人必拯溺者矣。”孔子见之以细，观化远也。
 这个写的非常好！ 也向我们展示了整个
 如果你做了好人好事，你不收奖励，那么其他人也会受影响，不敢收。最后整个国家的好人好事反而少了。 &amp;gt; 这类不对结果负责的行为，最后只会导致整个团队的风格是鼓励辛苦，而不是鼓励结果。</description>
-    </item>
-    
-    <item>
-      <title>Placeholder Text</title>
-      <link>http://example.org/posts/placeholder-text/</link>
-      <pubDate>Tue, 07 Feb 2023 00:00:00 +0000</pubDate>
-      
-      <guid>http://example.org/posts/placeholder-text/</guid>
-      <description>&lt;p&gt;Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Emoji Support</title>
-      <link>http://example.org/posts/emoji-support/</link>
-      <pubDate>Wed, 01 Feb 2023 00:00:00 +0000</pubDate>
-      
-      <guid>http://example.org/posts/emoji-support/</guid>
-      <description>&lt;p&gt;Emoji can be enabled in a Hugo project in a number of ways.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>http://example.org/pages/about/</link>
-      <pubDate>Thu, 28 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>http://example.org/pages/about/</guid>
-      <description>Written in Go, Hugo is an open source static site generator available under the Apache Licence 2.0. Hugo supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.
-Hugo makes use of a variety of open source projects including:
-https://github.com/yuin/goldmark https://github.</description>
     </item>
     
   </channel>
