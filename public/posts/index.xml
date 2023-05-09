@@ -6,7 +6,20 @@
     <description>Recent content in Posts on Yolo Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 02 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="http://example.org/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 09 May 2023 08:26:22 +0800</lastBuildDate><atom:link href="http://example.org/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>日报写作和必要心态</title>
+      <link>http://example.org/posts/daily_rountine_and_mindset/</link>
+      <pubDate>Tue, 09 May 2023 08:26:22 +0800</pubDate>
+      
+      <guid>http://example.org/posts/daily_rountine_and_mindset/</guid>
+      <description>每日的总结：（研究）对外明确贡献，评价贡献，站在消费者眼光看内容；（开发）对内梳理流程，提炼需求，站在效率角度看内容生产；（CEO）最终产生组织认同和社会影响，站在全局角度看局部贡献。
+日报的产出。 重点关注：1）写作日报这个动作是怎么完成的，2）我在完成整个过程中的耗时，3）完成以后作为知识产出的贡献如何。
+信息流产品的消费： 重点关注：1）信息源是哪些？能不能把自己当做Python，把requirements都列出来。2）信息流收集的流程和消费的形式。闲散时间当中添加阅读队列和进程。集中时间消化和处理。但是由于知识也是不同形式和来源的，研究起来也需要不同程度的消耗时间。所以什么时候消费是一个问题。
+贡献的表达： 重点关注：1）我对于世界的贡献是什么？我做了什么工作？希望达到什么效果？我理解的贡献有3各层次，执行层：我能干什么，认知层，我认识到了什么？影响层，我们这个行为/产品/观点，对社会有什么影响。我做一个事儿，我要在三个层次上释放价值。我怎么从零到一？我怎么落地个人主权？未来如果个人主权成为一种生活方式，那么什么才是最重要的基础设施？2）把所有你不知道的写下来。不懂比懂更重要。
+一些注意点： 关注：1）把自己套入到开发，产品，CEO的身份当中去，然后才开始工作。明确不同工作未来开放生态的可能性。2）不要沉迷细节忘记方向，也不要沉迷方向不关注细节。3）把整个过程当做一个社会试验来尝试。社会试验的故事性非常重要。关注社会试验的教育意义：比如哪些不懂？哪些未知会影响我们的行动？我们会面临哪些困难？要从第三方视角观察我们整个行动。</description>
+    </item>
+    
     <item>
       <title>How to enable table of content ?</title>
       <link>http://example.org/posts/table-of-content/</link>
