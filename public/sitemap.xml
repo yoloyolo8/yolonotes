@@ -3,10 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://example.org/</loc>
-    <lastmod>2023-05-09T08:26:22+08:00</lastmod>
+    <lastmod>2023-05-16T13:58:28+08:00</lastmod>
+  </url><url>
+    <loc>http://example.org/posts/crypto-dopamine-%E5%92%8C-%E6%96%B0%E6%B6%88%E8%B4%B9%E4%B8%BB%E4%B9%89/</loc>
+    <lastmod>2023-05-16T13:58:28+08:00</lastmod>
   </url><url>
     <loc>http://example.org/posts/</loc>
-    <lastmod>2023-05-09T08:26:22+08:00</lastmod>
+    <lastmod>2023-05-16T13:58:28+08:00</lastmod>
   </url><url>
     <loc>http://example.org/posts/daily_rountine_and_mindset/</loc>
     <lastmod>2023-05-09T08:26:22+08:00</lastmod>
