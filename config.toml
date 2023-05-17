@@ -20,7 +20,7 @@ url = "index.xml"
 
 [params]
   goToTop = true
-  
+  toc = true # set to false to disable table of contents 'globally'
 
 # Enable emojis globally
 enableEmoji = true
@@ -52,3 +52,8 @@ enableEmoji = true
   intro = "Yolo Notes"
   name = "Yolo"
   description = "我的个人笔记，读书|代码|写字"
+
+[tableOfContents]
+startLevel = 2 # ToC starts from H2
+endLevel = 4 # ToC ends at H4
+ordered = false # generates <ul> instead of <ol>
