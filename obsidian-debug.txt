@@ -1,0 +1,1 @@
+﻿C:\Users\yolo\OneDrive\Documents\Notes\测试：obsidian使用shell command发布hugo blog.md
