@@ -1,5 +1,5 @@
 .env
 .env.build
 # Ignore generated site
-public/
+# public/    # commented out so we can track generated site in repo
 
