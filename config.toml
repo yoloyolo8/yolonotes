@@ -3,9 +3,6 @@
   [[module.imports]]
     path = "github.com/hugo-sid/hugo-blog-awesome"
 
-[params]
-  goToTop = true
-
 name = "Hugo blog awesome"
 license = "MIT"
 
