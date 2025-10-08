@@ -13,7 +13,6 @@ draft: false
 
 ---
 
-
 文科生用obsidian写md，然后特定扔到vscode里面的terminal去上传。离开了vscode开terminal就特别没有安全感。以前写脚本心里是有挑战和抗拒的，现在有了ai就好很多。ai赋能文科生。
 Pasted image 20251008204019.png]]
 
