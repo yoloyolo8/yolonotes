@@ -1,4 +1,5 @@
 [module]
+  vendor = true
   [[module.imports]]
     path = "github.com/hugo-sid/hugo-blog-awesome"
 
