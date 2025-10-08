@@ -1,2 +1,5 @@
 .env
 .env.build
+# Ignore generated site
+public/
+
