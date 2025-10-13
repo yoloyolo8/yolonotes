@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="content-type" content="text/html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title itemprop="name">文科生学 AI 之移动端部署 Termux&#43; Ubuntu（proot 容器）&#43;Qwencode | </title>
+<meta property="og:title" content="文科生学 AI 之移动端部署 Termux&#43; Ubuntu（proot 容器）&#43;Qwencode | " />
+<meta name="twitter:title" content="文科生学 AI 之移动端部署 Termux&#43; Ubuntu（proot 容器）&#43;Qwencode | " />
+<meta itemprop="name" content="文科生学 AI 之移动端部署 Termux&#43; Ubuntu（proot 容器）&#43;Qwencode | " />
+<meta name="application-name" content="文科生学 AI 之移动端部署 Termux&#43; Ubuntu（proot 容器）&#43;Qwencode | " />
+<meta property="og:site_name" content="" />
+
+<meta name="description" content="">
+<meta itemprop="description" content="" />
+<meta property="og:description" content="" />
+<meta name="twitter:description" content="" />
+
+<meta property="og:locale" content="en" />
+<meta name="language" content="en" />
+
+  <link rel="alternate" hreflang="en" href="//localhost:1313/posts/%E6%96%87%E7%A7%91%E7%94%9F%E5%AD%A6-ai-%E4%B9%8B%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%83%A8%E7%BD%B2-termux-&#43;-ubuntuproot-%E5%AE%B9%E5%99%A8&#43;qwencode/" title="" />
+
+
+
+
+
+    
+    
+    
+
+    <meta property="og:type" content="article" />
+    <meta property="og:article:published_time" content=2025-10-13T08:26:09&#43;0800 />
+    <meta property="article:published_time" content=2025-10-13T08:26:09&#43;0800 />
+    <meta property="og:url" content="//localhost:1313/posts/%E6%96%87%E7%A7%91%E7%94%9F%E5%AD%A6-ai-%E4%B9%8B%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%83%A8%E7%BD%B2-termux-&#43;-ubuntuproot-%E5%AE%B9%E5%99%A8&#43;qwencode/" />
+
+    
+    <meta property="og:article:author" content="Yolo" />
+    <meta property="article:author" content="Yolo" />
+    <meta name="author" content="Yolo" />
+    
+    
+
+    
+
+    <script defer type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "Article",
+        "headline": "文科生学 AI 之移动端部署 Termux+ Ubuntu（proot 容器）+Qwencode",
+        "author": {
+        "@type": "Person",
+        "name": ""
+        },
+        "datePublished": "2025-10-13",
+        "description": "",
+        "wordCount":  387 ,
+        "mainEntityOfPage": "True",
+        "dateModified": "2025-10-13",
+        "image": {
+        "@type": "imageObject",
+        "url": ""
+        },
+        "publisher": {
+        "@type": "Organization",
+        "name": ""
+        }
+    }
+    </script>
+
+
+<meta name="generator" content="Hugo 0.151.0">
+
+    
+    <meta property="og:url" content="//localhost:1313/posts/%E6%96%87%E7%A7%91%E7%94%9F%E5%AD%A6-ai-%E4%B9%8B%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%83%A8%E7%BD%B2-termux-&#43;-ubuntuproot-%E5%AE%B9%E5%99%A8&#43;qwencode/">
+  <meta property="og:title" content="文科生学 AI 之移动端部署 Termux&#43; Ubuntu（proot 容器）&#43;Qwencode">
+  <meta property="og:description" content="文科生学 AI 之移动端部署 Termux &#43; Ubuntu（proot 容器）&#43;Qwencode
+适合人群：对 AI 感兴趣、电脑不一定强、只有一部安卓手机的文科大学生。
+目标：在安卓手机上，搭一个“口袋版 Linux 环境”，把 Qwen-Code（阿里通义的编程/推理协作工具）跑起来，并且能直接读写你手机里的文件（比如课堂笔记、采访稿、诗歌草稿）。
+1. 目标 在安卓手机上用 Termux &#43; Ubuntu（proot 容器） 安装并运行 qwen-code。 让 qwen 能直接访问手机本地文件夹（如 /sdcard/Projects），进行整理、重写、批注、搜索等。 2. 解决问题所需要的知识（用生活比喻讲清楚） 2.1 三层结构（房子—过道—工作室） Android（房子地基）：你的手机系统。 Termux（过道）：在安卓里开出一个“走廊”，能用命令行、装工具。 Ubuntu in proot（工作室）：在走廊里搭了个“工作室”，更完整、更稳定，适合安装 qwen-code。 记住：qwen 是在 Ubuntu “工作室”里跑的，不是直接跑在安卓上。
+2.2 “绑定挂载”（bind）不是复制 把手机的某个文件夹（如 /sdcard/Projects）映射进 Ubuntu（比如映射为 /mnt/sdcard）。 这样 qwen 在 Ubuntu 里改 /mnt/sdcard/…，等于改了你手机原文件，没有复制，是同一份。
+4. 实践代码（完全可复制） 一台安卓手机即可。
+以下每一步都尽量写全了。务必按顺序来，失败就从失败那步往回看。
+4.1 安装 Termux 并做基础准备 安装 Termux（推荐 F-Droid 或官方可信来源）。 打开 Termux，执行： pkg update -y pkg upgrade -y termux-setup-storage # 弹出授权对话框 → 允许 4.2 安装 proot-distro 并拉起 Ubuntu pkg install -y proot-distro proot-distro install ubuntu 若失败重来：
+proot-distro remove ubuntu &amp;&amp; proot-distro install ubuntu">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-10-13T08:26:09+08:00">
+    <meta property="article:modified_time" content="2025-10-13T08:26:09+08:00">
+
+
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="文科生学 AI 之移动端部署 Termux&#43; Ubuntu（proot 容器）&#43;Qwencode">
+  <meta name="twitter:description" content="文科生学 AI 之移动端部署 Termux &#43; Ubuntu（proot 容器）&#43;Qwencode
+适合人群：对 AI 感兴趣、电脑不一定强、只有一部安卓手机的文科大学生。
+目标：在安卓手机上，搭一个“口袋版 Linux 环境”，把 Qwen-Code（阿里通义的编程/推理协作工具）跑起来，并且能直接读写你手机里的文件（比如课堂笔记、采访稿、诗歌草稿）。
+1. 目标 在安卓手机上用 Termux &#43; Ubuntu（proot 容器） 安装并运行 qwen-code。 让 qwen 能直接访问手机本地文件夹（如 /sdcard/Projects），进行整理、重写、批注、搜索等。 2. 解决问题所需要的知识（用生活比喻讲清楚） 2.1 三层结构（房子—过道—工作室） Android（房子地基）：你的手机系统。 Termux（过道）：在安卓里开出一个“走廊”，能用命令行、装工具。 Ubuntu in proot（工作室）：在走廊里搭了个“工作室”，更完整、更稳定，适合安装 qwen-code。 记住：qwen 是在 Ubuntu “工作室”里跑的，不是直接跑在安卓上。
+2.2 “绑定挂载”（bind）不是复制 把手机的某个文件夹（如 /sdcard/Projects）映射进 Ubuntu（比如映射为 /mnt/sdcard）。 这样 qwen 在 Ubuntu 里改 /mnt/sdcard/…，等于改了你手机原文件，没有复制，是同一份。
+4. 实践代码（完全可复制） 一台安卓手机即可。
+以下每一步都尽量写全了。务必按顺序来，失败就从失败那步往回看。
+4.1 安装 Termux 并做基础准备 安装 Termux（推荐 F-Droid 或官方可信来源）。 打开 Termux，执行： pkg update -y pkg upgrade -y termux-setup-storage # 弹出授权对话框 → 允许 4.2 安装 proot-distro 并拉起 Ubuntu pkg install -y proot-distro proot-distro install ubuntu 若失败重来：
+proot-distro remove ubuntu &amp;&amp; proot-distro install ubuntu">
+
+
+    
+
+    <link rel="canonical" href="//localhost:1313/posts/%E6%96%87%E7%A7%91%E7%94%9F%E5%AD%A6-ai-%E4%B9%8B%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%83%A8%E7%BD%B2-termux-&#43;-ubuntuproot-%E5%AE%B9%E5%99%A8&#43;qwencode/">
+    <link href="/style.min.2d921c18cf1ec555ffc03d59a8adc211c402c68c930c27d6a0c306ab175a8d09.css" rel="stylesheet">
+    <link href="/code-highlight.min.706d31975fec544a864cb7f0d847a73ea55ca1df91bf495fd12a177138d807cf.css" rel="stylesheet">
+
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg">
+    <link rel="shortcut icon" href="/favicon.ico">
+
+
+
+
+<link rel="manifest" href="//localhost:1313/site.webmanifest">
+
+<meta name="msapplication-config" content="/browserconfig.xml">
+<meta name="msapplication-TileColor" content="#2d89ef">
+<meta name="theme-color" content="#434648">
+
+    
+    <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg">
+
+    
+    
+</head>
+<body data-theme = "" class="notransition">
+
+<script src="/js/theme.js"></script>
+
+<div class="navbar" role="navigation">
+    <nav class="menu" aria-label="Main Navigation">
+        <a href="//localhost:1313/" class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" 
+viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" 
+stroke-linejoin="round" class="feather feather-home">
+<title></title>
+<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+<polyline points="9 22 9 12 15 12 15 22"></polyline>
+</svg>
+        </a>
+        <input type="checkbox" id="menu-trigger" class="menu-trigger" />
+        <label for="menu-trigger">
+            <span class="menu-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" stroke="currentColor" fill="none" viewBox="0 0 14 14"><title>Menu</title><path stroke-linecap="round" stroke-linejoin="round" d="M10.595 7L3.40726 7"></path><path stroke-linecap="round" stroke-linejoin="round" d="M10.5096 3.51488L3.49301 3.51488"></path><path stroke-linecap="round" stroke-linejoin="round" d="M10.5096 10.4851H3.49301"></path><path stroke-linecap="round" stroke-linejoin="round" d="M0.5 12.5V1.5C0.5 0.947715 0.947715 0.5 1.5 0.5H12.5C13.0523 0.5 13.5 0.947715 13.5 1.5V12.5C13.5 13.0523 13.0523 13.5 12.5 13.5H1.5C0.947715 13.5 0.5 13.0523 0.5 12.5Z"></path></svg>
+            </span>
+        </label>
+
+        <div class="trigger">
+            <ul class="trigger-container">
+                
+                
+                <li>
+                    <a class="menu-link " href="/">
+                        Home
+                    </a>
+                    
+                </li>
+                
+                <li>
+                    <a class="menu-link active" href="/posts/">
+                        Posts
+                    </a>
+                    
+                </li>
+                
+                <li>
+                    <a class="menu-link " href="/pages/about/">
+                        About
+                    </a>
+                    
+                </li>
+                
+                <li class="menu-separator">
+                    <span>|</span>
+                </li>
+                
+                
+            </ul>
+            <a id="mode" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mode-sunny" width="21" height="21" viewBox="0 0 14 14" stroke-width="1">
+<title>LIGHT</title><g><circle cx="7" cy="7" r="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle><line x1="7" y1="0.5" x2="7" y2="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="2.4" x2="3.82" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="0.5" y1="7" x2="2.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="11.6" x2="3.82" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="7" y1="13.5" x2="7" y2="11.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="11.6" x2="10.18" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="13.5" y1="7" x2="11.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="2.4" x2="10.18" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line></g></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="mode-moon" width="21" height="21" viewBox="0 0 14 14" stroke-width="1">
+<title>DARK</title><g><circle cx="7" cy="7" r="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle><line x1="7" y1="0.5" x2="7" y2="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="2.4" x2="3.82" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="0.5" y1="7" x2="2.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="11.6" x2="3.82" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="7" y1="13.5" x2="7" y2="11.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="11.6" x2="10.18" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="13.5" y1="7" x2="11.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="2.4" x2="10.18" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line></g></svg>
+            </a>
+        </div>
+    </nav>
+</div>
+
+<div class="wrapper post">
+    <main class="page-content" aria-label="Content">
+        <article>
+            <header class="header">
+                <h1 class="header-title">文科生学 AI 之移动端部署 Termux&#43; Ubuntu（proot 容器）&#43;Qwencode</h1>
+                
+                
+                
+                <div class="post-meta">
+                    <time datetime="2025-10-13T08:26:09&#43;08:00" itemprop="datePublished"> Oct 13, 2025 </time>
+                </div>
+                
+            </header>
+            
+    
+    <details class="toc" ZgotmplZ>
+        <summary><b></b></summary>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-目标">1. 目标</a></li>
+    <li><a href="#2-解决问题所需要的知识用生活比喻讲清楚">2. 解决问题所需要的知识（用生活比喻讲清楚）</a>
+      <ul>
+        <li><a href="#21-三层结构房子过道工作室">2.1 三层结构（房子—过道—工作室）</a></li>
+        <li><a href="#22-绑定挂载bind不是复制">2.2 “绑定挂载”（bind）不是复制</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-实践代码完全可复制">4. 实践代码（完全可复制）</a>
+      <ul>
+        <li><a href="#41-安装-termux-并做基础准备">4.1 安装 Termux 并做基础准备</a></li>
+        <li><a href="#42-安装-proot-distro-并拉起-ubuntu">4.2 安装 proot-distro 并拉起 Ubuntu</a></li>
+        <li><a href="#43-登录-ubuntu首次先手动绑定手机存储">4.3 登录 Ubuntu（首次先手动绑定手机存储）</a></li>
+        <li><a href="#44-在-ubuntu-内安装依赖一次到位">4.4 在 Ubuntu 内安装依赖（一次到位）</a></li>
+        <li><a href="#45-安装-nodejs-20lts">4.5 安装 Node.js 20（LTS）</a></li>
+        <li><a href="#46-安装-qwen-code-与进程守护可选">4.6 安装 qwen-code 与进程守护（可选）</a></li>
+        <li><a href="#47-建立你的项目文件夹并验证绑定">4.7 建立你的“项目”文件夹并验证绑定</a></li>
+        <li><a href="#48-让-qwen-直接访问手机里的文件">4.8 让 qwen 直接访问手机里的文件</a></li>
+        <li><a href="#49-每次登录都自动绑定可选优化">4.9 每次登录都自动绑定（可选优化）</a></li>
+        <li><a href="#410-防止休眠杀进程建议">4.10 防止休眠杀进程（建议）</a></li>
+        <li><a href="#411可选让-qwen-长驻守护进程">4.11（可选）让 qwen 长驻（守护进程）</a></li>
+      </ul>
+    </li>
+    <li><a href="#5-心得总结">5. 心得总结：</a>
+      <ul>
+        <li><a href="#附一键重装修复清单出问题按次序执行">附：一键重装/修复清单（出问题按次序执行）</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </details>
+            <div class="page-content">
+                <p>文科生学 AI 之移动端部署 <strong>Termux</strong> + Ubuntu（proot 容器）+Qwencode</p>
+<blockquote>
+<p>适合人群：对 AI 感兴趣、电脑不一定强、只有一部安卓手机的文科大学生。<br>
+目标：在<strong>安卓手机</strong>上，搭一个“口袋版 Linux 环境”，把 <strong>Qwen-Code</strong>（阿里通义的编程/推理协作工具）跑起来，并且<strong>能直接读写你手机里的文件</strong>（比如课堂笔记、采访稿、诗歌草稿）。</p></blockquote>
+<hr>
+<h2 id="1-目标">1. 目标</h2>
+<ul>
+<li>在安卓手机上用 <strong>Termux</strong> + <strong>Ubuntu（proot 容器）</strong> 安装并运行 <strong>qwen-code</strong>。</li>
+<li>让 qwen 能<strong>直接访问手机本地文件夹</strong>（如 <code>/sdcard/Projects</code>），进行整理、重写、批注、搜索等。</li>
+</ul>
+<hr>
+<h2 id="2-解决问题所需要的知识用生活比喻讲清楚">2. 解决问题所需要的知识（用生活比喻讲清楚）</h2>
+<h3 id="21-三层结构房子过道工作室">2.1 三层结构（房子—过道—工作室）</h3>
+<ul>
+<li><strong>Android（房子地基）</strong>：你的手机系统。</li>
+<li><strong>Termux（过道）</strong>：在安卓里开出一个“走廊”，能用命令行、装工具。</li>
+<li><strong>Ubuntu in proot（工作室）</strong>：在走廊里搭了个“工作室”，更完整、更稳定，适合安装 qwen-code。</li>
+</ul>
+<blockquote>
+<p>记住：<strong>qwen 是在 Ubuntu “工作室”里跑的</strong>，不是直接跑在安卓上。</p></blockquote>
+<h3 id="22-绑定挂载bind不是复制">2.2 “绑定挂载”（bind）不是复制</h3>
+<p>把手机的某个文件夹（如 <code>/sdcard/Projects</code>）<strong>映射</strong>进 Ubuntu（比如映射为 <code>/mnt/sdcard</code>）。  这样 qwen 在 Ubuntu 里改 <code>/mnt/sdcard/…</code>，等于改了你手机原文件，<strong>没有复制</strong>，是同一份。</p>
+<h2 id="4-实践代码完全可复制">4. 实践代码（完全可复制）</h2>
+<blockquote>
+<p><strong>一台安卓手机即可。</strong><br>
+以下每一步都尽量写全了。务必按顺序来，失败就从失败那步往回看。</p></blockquote>
+<h3 id="41-安装-termux-并做基础准备">4.1 安装 Termux 并做基础准备</h3>
+<ol>
+<li>安装 <strong>Termux</strong>（推荐 F-Droid 或官方可信来源）。</li>
+<li>打开 Termux，执行：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pkg update -y
+</span></span><span style="display:flex;"><span>pkg upgrade -y
+</span></span><span style="display:flex;"><span>termux-setup-storage
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 弹出授权对话框 → 允许</span>
+</span></span></code></pre></div><h3 id="42-安装-proot-distro-并拉起-ubuntu">4.2 安装 proot-distro 并拉起 Ubuntu</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pkg install -y proot-distro
+</span></span><span style="display:flex;"><span>proot-distro install ubuntu
+</span></span></code></pre></div><blockquote>
+<p>若失败重来：<br>
+<code>proot-distro remove ubuntu &amp;&amp; proot-distro install ubuntu</code></p></blockquote>
+<h3 id="43-登录-ubuntu首次先手动绑定手机存储">4.3 登录 Ubuntu（首次先手动绑定手机存储）</h3>
+<blockquote>
+<p>注意：提示符要是 <strong><code>$</code></strong>（普通用户）。如果是 <code>#</code>，多敲几次 <code>exit</code> 回来。</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>proot-distro login ubuntu --bind /sdcard:/mnt/sdcard
+</span></span></code></pre></div><p>进入后你会看到类似 <code>root@localhost:~#</code> 的提示符（这是 Ubuntu 内部的“伪 root”，安全的）。</p>
+<h3 id="44-在-ubuntu-内安装依赖一次到位">4.4 在 Ubuntu 内安装依赖（一次到位）</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt update
+</span></span><span style="display:flex;"><span>apt install -y curl git python3 build-essential ripgrep
+</span></span></code></pre></div><h3 id="45-安装-nodejs-20lts">4.5 安装 Node.js 20（LTS）</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+</span></span><span style="display:flex;"><span>apt install -y nodejs
+</span></span><span style="display:flex;"><span>node -v
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 看到 v20.x.x 即成功</span>
+</span></span></code></pre></div><h3 id="46-安装-qwen-code-与进程守护可选">4.6 安装 qwen-code 与进程守护（可选）</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>npm install -g @qwen-code/qwen-code pm2
+</span></span><span style="display:flex;"><span>qwen --version
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 显示版本号即可</span>
+</span></span></code></pre></div><h3 id="47-建立你的项目文件夹并验证绑定">4.7 建立你的“项目”文件夹并验证绑定</h3>
+<p>在手机的“文件管理器”里创建：<strong>内部存储/Projects</strong>（或用电脑先建好再拷过去）。</p>
+<p>回到 Ubuntu：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkdir -p /mnt/sdcard/Projects
+</span></span><span style="display:flex;"><span>ls /mnt/sdcard
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 应能看到 Projects</span>
+</span></span></code></pre></div><h3 id="48-让-qwen-直接访问手机里的文件">4.8 让 qwen 直接访问手机里的文件</h3>
+<p>假设你想让 qwen 处理 <code>/sdcard/Projects/notes/essay.md</code>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 在 Ubuntu 里（确保之前已 --bind 进入）</span>
+</span></span><span style="display:flex;"><span>mkdir -p /mnt/sdcard/Projects/notes
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;这是一篇需要润色的文章。&#34;</span> &gt; /mnt/sdcard/Projects/notes/essay.md
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 示例：让 qwen 读取并提出修改建议（命令示意，按 qwen-code 的 CLI 用法调整）</span>
+</span></span><span style="display:flex;"><span>qwen <span style="color:#e6db74">&#34;/mnt/sdcard/Projects/notes/essay.md&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --task <span style="color:#e6db74">&#34;请帮我改写，使其更清晰、更有逻辑，给出三版不同风格草稿&#34;</span>
+</span></span></code></pre></div><blockquote>
+<p><strong>要点</strong>：这里的 <code>/mnt/sdcard/...</code> 就是你手机真实的 <code>/sdcard/...</code>。<br>
+修改是实时的、同一份文件（不是复制）。</p></blockquote>
+<h3 id="49-每次登录都自动绑定可选优化">4.9 每次登录都自动绑定（可选优化）</h3>
+<p>让它“永久绑定”，不用每次都加 <code>--bind</code>：</p>
+<ol>
+<li>编辑 Ubuntu 的 proot 启动配置（在 Termux 普通用户 <code>$</code> 下）：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano $PREFIX/etc/proot-distro/ubuntu.sh
+</span></span></code></pre></div><p>找到 <code>proot_args</code> 那行，追加：</p>
+<pre tabindex="0"><code>--bind /sdcard:/mnt/sdcard
+</code></pre><p>保存退出（Nano：<code>Ctrl+O</code> 回车，<code>Ctrl+X</code> 退出）。</p>
+<ol start="2">
+<li>验证：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>proot-distro login ubuntu
+</span></span><span style="display:flex;"><span>ls /mnt/sdcard
+</span></span></code></pre></div><h3 id="410-防止休眠杀进程建议">4.10 防止休眠杀进程（建议）</h3>
+<p>回到 Termux（普通 <code>$</code>）：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>termux-wake-lock
+</span></span></code></pre></div><p>再到手机系统设置里把 <strong>Termux</strong> 的“电池优化”关闭（允许后台活动）。</p>
+<h3 id="411可选让-qwen-长驻守护进程">4.11（可选）让 qwen 长驻（守护进程）</h3>
+<p>如果你常用某个命令，可以用 <code>pm2</code>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 进入 Ubuntu</span>
+</span></span><span style="display:flex;"><span>proot-distro login ubuntu
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 示例：做一个一直在某目录工作的服务（按需替换命令）</span>
+</span></span><span style="display:flex;"><span>pm2 start <span style="color:#e6db74">&#34;qwen --watch /mnt/sdcard/Projects&#34;</span> --name qwen_watch
+</span></span><span style="display:flex;"><span>pm2 save
+</span></span><span style="display:flex;"><span>pm2 list
+</span></span></code></pre></div><blockquote>
+<p>后续重启 Termux/Ubuntu 后，用 <code>pm2 resurrect</code> 恢复。</p></blockquote>
+<hr>
+<h2 id="5-心得总结">5. 心得总结：</h2>
+<ol>
+<li>
+<p><strong>先理解结构，再跑命令</strong><br>
+把 Termux 当“过道”、Ubuntu 当“工作室”，你就不会在错误的地方装错东西。<br>
+qwen 在<strong>工作室里</strong>跑，手机文件通过“窗户”（bind）共享进来。</p>
+</li>
+<li>
+<p><strong>稳定比新更重要</strong><br>
+选择 <strong>Node 20 LTS</strong> 像用“通行教材”，插件配套全，不容易踩坑。<br>
+遇到“平台不识别”“没 Python”，八成是<strong>环境没配全</strong>，不是你输入错字。</p>
+</li>
+<li>
+<p><strong>bind 是共享不是拷贝</strong><br>
+qwen 改 <code>/mnt/sdcard</code> 就是改 <code>/sdcard</code>。<br>
+编辑到一半回文件管理器能马上看到变化，<strong>这就是“同一份文件”的力量</strong>。</p>
+</li>
+<li>
+<p><strong>失败不是“不会”，是“没按顺序”</strong><br>
+遇到报错就回顾：我现在在<strong>哪一层</strong>（Termux 还是 Ubuntu）？<br>
+是不是在 root 下误跑了 proot-distro？Ubuntu 是否完整安装？依赖装齐没？</p>
+</li>
+</ol>
+<hr>
+<h3 id="附一键重装修复清单出问题按次序执行">附：一键重装/修复清单（出问题按次序执行）</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 1) 回到普通用户（看到 $ 而不是 #）</span>
+</span></span><span style="display:flex;"><span>exit   <span style="color:#75715e"># 多次，直到回到 $</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2) 重新安装 Ubuntu</span>
+</span></span><span style="display:flex;"><span>pkg update -y
+</span></span><span style="display:flex;"><span>pkg install -y proot-distro
+</span></span><span style="display:flex;"><span>proot-distro remove ubuntu
+</span></span><span style="display:flex;"><span>proot-distro install ubuntu
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3) 登录并绑定手机存储</span>
+</span></span><span style="display:flex;"><span>proot-distro login ubuntu --bind /sdcard:/mnt/sdcard
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4) 装依赖</span>
+</span></span><span style="display:flex;"><span>apt update
+</span></span><span style="display:flex;"><span>apt install -y curl git python3 build-essential ripgrep
+</span></span><span style="display:flex;"><span>curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+</span></span><span style="display:flex;"><span>apt install -y nodejs
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 5) 装 qwen-code</span>
+</span></span><span style="display:flex;"><span>npm install -g @qwen-code/qwen-code
+</span></span><span style="display:flex;"><span>qwen --version
+</span></span></code></pre></div>
+            </div>
+        </article></main>
+</div>
+<footer class="footer">
+    <span class="footer_item"> </span>
+    &nbsp;
+
+    <div class="footer_social-icons">
+<a href="https://github.com/yoloyolo8" target="_blank" rel="noopener noreferrer me"
+    title="Github">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round">
+    <path
+        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+    </path>
+</svg>
+</a>
+<a href="https://twitter.com/0xyolo" target="_blank" rel="noopener noreferrer me"
+    title="Twitter">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round">
+    <path
+        d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+    </path>
+</svg>
+</a>
+<a href="index.xml" target="_blank" rel="noopener noreferrer me"
+    title="Rss">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9" />
+    <path d="M4 4a16 16 0 0 1 16 16" />
+    <circle cx="5" cy="19" r="1" />
+</svg>
+</a>
+</div>
+    <small class="footer_copyright">
+        © 2025 Yolo.
+        
+    </small>
+</footer><a href="#" title="" id="totop">
+    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" stroke="currentColor" viewBox="0 96 960 960">
+    <path d="M283 704.739 234.261 656 480 410.261 725.739 656 677 704.739l-197-197-197 197Z"/>
+</svg>
+
+</a>
+
+
+    
+
+
+
+
+
+
+    
+    <script async src="//localhost:1313/js/main.js" ></script>
+
+    
+
+</body>
+</html>

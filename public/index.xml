@@ -1,48 +1,133 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Home on</title><link>/</link><description>Recent content in Home on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 09 Oct 2025 08:26:09 +0800</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>测试：obsidian使用shell command发布hugo blog</title><link>/posts/%E6%B5%8B%E8%AF%95obsidian%E4%BD%BF%E7%94%A8shell-command%E5%8F%91%E5%B8%83hugo-blog/</link><pubDate>Thu, 09 Oct 2025 08:26:09 +0800</pubDate><guid>/posts/%E6%B5%8B%E8%AF%95obsidian%E4%BD%BF%E7%94%A8shell-command%E5%8F%91%E5%B8%83hugo-blog/</guid><description>&lt;p&gt;文科生用obsidian写md，然后特定扔到vscode里面的terminal去上传。离开了vscode开terminal就特别没有安全感。以前写脚本心里是有挑战和抗拒的，现在有了ai就好很多。ai赋能文科生。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Home on </title>
+    <link>//localhost:1313/</link>
+    <description>Recent content in Home on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 13 Oct 2025 08:26:09 +0800</lastBuildDate><atom:link href="//localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>文科生学 AI 之移动端部署 Termux&#43; Ubuntu（proot 容器）&#43;Qwencode</title>
+      <link>//localhost:1313/posts/%E6%96%87%E7%A7%91%E7%94%9F%E5%AD%A6-ai-%E4%B9%8B%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%83%A8%E7%BD%B2-termux-&#43;-ubuntuproot-%E5%AE%B9%E5%99%A8&#43;qwencode/</link>
+      <pubDate>Mon, 13 Oct 2025 08:26:09 +0800</pubDate>
+      
+      <guid>//localhost:1313/posts/%E6%96%87%E7%A7%91%E7%94%9F%E5%AD%A6-ai-%E4%B9%8B%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%83%A8%E7%BD%B2-termux-&#43;-ubuntuproot-%E5%AE%B9%E5%99%A8&#43;qwencode/</guid>
+      
+      <description>&lt;p&gt;文科生学 AI 之移动端部署 &lt;strong&gt;Termux&lt;/strong&gt; + Ubuntu（proot 容器）+Qwencode&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;适合人群：对 AI 感兴趣、电脑不一定强、只有一部安卓手机的文科大学生。&lt;br&gt;
+目标：在&lt;strong&gt;安卓手机&lt;/strong&gt;上，搭一个“口袋版 Linux 环境”，把 &lt;strong&gt;Qwen-Code&lt;/strong&gt;（阿里通义的编程/推理协作工具）跑起来，并且&lt;strong&gt;能直接读写你手机里的文件&lt;/strong&gt;（比如课堂笔记、采访稿、诗歌草稿）。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;1-目标&#34;&gt;1. 目标&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;在安卓手机上用 &lt;strong&gt;Termux&lt;/strong&gt; + &lt;strong&gt;Ubuntu（proot 容器）&lt;/strong&gt; 安装并运行 &lt;strong&gt;qwen-code&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;让 qwen 能&lt;strong&gt;直接访问手机本地文件夹&lt;/strong&gt;（如 &lt;code&gt;/sdcard/Projects&lt;/code&gt;），进行整理、重写、批注、搜索等。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;2-解决问题所需要的知识用生活比喻讲清楚&#34;&gt;2. 解决问题所需要的知识（用生活比喻讲清楚）&lt;/h2&gt;
+&lt;h3 id=&#34;21-三层结构房子过道工作室&#34;&gt;2.1 三层结构（房子—过道—工作室）&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Android（房子地基）&lt;/strong&gt;：你的手机系统。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Termux（过道）&lt;/strong&gt;：在安卓里开出一个“走廊”，能用命令行、装工具。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ubuntu in proot（工作室）&lt;/strong&gt;：在走廊里搭了个“工作室”，更完整、更稳定，适合安装 qwen-code。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;记住：&lt;strong&gt;qwen 是在 Ubuntu “工作室”里跑的&lt;/strong&gt;，不是直接跑在安卓上。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h3 id=&#34;22-绑定挂载bind不是复制&#34;&gt;2.2 “绑定挂载”（bind）不是复制&lt;/h3&gt;
+&lt;p&gt;把手机的某个文件夹（如 &lt;code&gt;/sdcard/Projects&lt;/code&gt;）&lt;strong&gt;映射&lt;/strong&gt;进 Ubuntu（比如映射为 &lt;code&gt;/mnt/sdcard&lt;/code&gt;）。  这样 qwen 在 Ubuntu 里改 &lt;code&gt;/mnt/sdcard/…&lt;/code&gt;，等于改了你手机原文件，&lt;strong&gt;没有复制&lt;/strong&gt;，是同一份。&lt;/p&gt;
+&lt;h2 id=&#34;4-实践代码完全可复制&#34;&gt;4. 实践代码（完全可复制）&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;一台安卓手机即可。&lt;/strong&gt;&lt;br&gt;
+以下每一步都尽量写全了。务必按顺序来，失败就从失败那步往回看。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h3 id=&#34;41-安装-termux-并做基础准备&#34;&gt;4.1 安装 Termux 并做基础准备&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;安装 &lt;strong&gt;Termux&lt;/strong&gt;（推荐 F-Droid 或官方可信来源）。&lt;/li&gt;
+&lt;li&gt;打开 Termux，执行：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;pkg update -y
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;pkg upgrade -y
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;termux-setup-storage
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 弹出授权对话框 → 允许&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;42-安装-proot-distro-并拉起-ubuntu&#34;&gt;4.2 安装 proot-distro 并拉起 Ubuntu&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;pkg install -y proot-distro
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;proot-distro install ubuntu
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;若失败重来：&lt;br&gt;
+&lt;code&gt;proot-distro remove ubuntu &amp;amp;&amp;amp; proot-distro install ubuntu&lt;/code&gt;&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>测试：obsidian使用shell command发布hugo blog</title>
+      <link>//localhost:1313/posts/%E6%B5%8B%E8%AF%95obsidian%E4%BD%BF%E7%94%A8shell-command%E5%8F%91%E5%B8%83hugo-blog/</link>
+      <pubDate>Thu, 09 Oct 2025 08:26:09 +0800</pubDate>
+      
+      <guid>//localhost:1313/posts/%E6%B5%8B%E8%AF%95obsidian%E4%BD%BF%E7%94%A8shell-command%E5%8F%91%E5%B8%83hugo-blog/</guid>
+      
+      <description>&lt;p&gt;文科生用obsidian写md，然后特定扔到vscode里面的terminal去上传。离开了vscode开terminal就特别没有安全感。以前写脚本心里是有挑战和抗拒的，现在有了ai就好很多。ai赋能文科生。
 Pasted imag&lt;/p&gt;
-&lt;h2 id="发布时显示"&gt;发布时显示&lt;/h2&gt;
-&lt;pre tabindex="0"&gt;&lt;code&gt;===== Hugo 一键发布 =====
+&lt;h2 id=&#34;发布时显示&#34;&gt;发布时显示&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;===== Hugo 一键发布 =====
+
 [13:45:22] 正在验证输入文件
 当前文件: 我的文章.md
+
 [13:45:23] 请选择发布位置
 1. 博客文章 (content/posts)
 2. 关于页面 (content/about)
 3. 自定义目录
 X. 取消操作
+
 您的选择 [1/2/3/X]: 1
+
 [13:45:25] 准备发布到: D:\MyHugoSite\content\posts
+
 [13:45:25] 正在复制文件
 原始位置: D:\ObsidianVault\笔记\我的文章.md
 目标位置: D:\MyHugoSite\content\posts\我的文章.md
 ✅ 文件复制成功
+
 [13:45:26] 执行 Git 操作
 拉取远程更改...
 Already up to date.
 添加更改到 Git...
 创建提交: 发布: 我的文章.md =&amp;gt; posts
 [main 1a2b3c4] 发布: 我的文章.md =&amp;gt; posts
-1 file changed, 10 insertions(+)
+ 1 file changed, 10 insertions(+)
 推送到远程仓库...
 Enumerating objects: 5, done.
 Counting objects: 100% (5/5), done.
 Writing objects: 100% (3/3), 745 bytes | 745.00 KiB/s, done.
 ✅ Git 操作成功完成
 ✅ Vercel 将在60秒内开始部署
+
 发布成功！Vercel 将在60秒内自动部署。
 按任意键关闭窗口 (将在 5秒后自动关闭)...
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Shellpower.ps1&lt;/p&gt;</description></item><item><title>Crypto, Dopamine 和 新消费主义</title><link>/posts/crypto-dopamine-%E5%92%8C-%E6%96%B0%E6%B6%88%E8%B4%B9%E4%B8%BB%E4%B9%89/</link><pubDate>Tue, 16 May 2023 13:58:28 +0800</pubDate><guid>/posts/crypto-dopamine-%E5%92%8C-%E6%96%B0%E6%B6%88%E8%B4%B9%E4%B8%BB%E4%B9%89/</guid><description>&lt;blockquote&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Shellpower.ps1&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>Crypto, Dopamine 和 新消费主义</title>
+      <link>//localhost:1313/posts/crypto-dopamine-%E5%92%8C-%E6%96%B0%E6%B6%88%E8%B4%B9%E4%B8%BB%E4%B9%89/</link>
+      <pubDate>Tue, 16 May 2023 13:58:28 +0800</pubDate>
+      
+      <guid>//localhost:1313/posts/crypto-dopamine-%E5%92%8C-%E6%96%B0%E6%B6%88%E8%B4%B9%E4%B8%BB%E4%B9%89/</guid>
+      
+      <description>&lt;blockquote&gt;
 &lt;p&gt;行为与观念的自洽 是 最自由的状态。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;p&gt;本文从dopamine机制出发试图，以及VC历史归因的错误倾向。试图聊聊群体倾向和个人追求。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;正向激励形成行为习惯，行为习惯塑造个人认同，个人认同决定话语模式。
 正向激励形成最佳实践，最佳实践塑造机构认同，机构认同决定行为模式。&lt;/p&gt;&lt;/blockquote&gt;
-&lt;h2 id="pump-traffic-nomics"&gt;Pump traffic-nomics&lt;/h2&gt;
+&lt;h2 id=&#34;pump-traffic-nomics&#34;&gt;Pump traffic-nomics&lt;/h2&gt;
 &lt;p&gt;社会对于一种观念的认可总是网状慢慢稀释的，观念好似布朗运动一般与每一个个体碰撞弥散。短期快速的形成共识，是不符合常识的。哪怕就一个人看一本书来说，也需要咀嚼消化反刍，再结合实践才能真正做出稳定长期的评价。观念是需要压力测试的，观念是一个适应性的过程。&lt;/p&gt;
 &lt;p&gt;与之相比，Pump&amp;amp;Dump就直接的多，他可以让用户快速的获得反馈。并借此产生自我成就感“你看，我牛x吧，1天就500%”&lt;/p&gt;
 &lt;p&gt;“你看，我牛x吧，1天就500%”，“你看，我牛x吧，1年就500%”，“你看，我牛x吧，10年就500%”。大概都属于同一种病症。&lt;/p&gt;
-&lt;h3 id="pump--dopamine"&gt;Pump &amp;amp; Dopamine&lt;/h3&gt;
-&lt;p&gt;&lt;img src="https://api.onedrive.com/v1.0/shares/s!Aq_WMf6dXAH_gURsb28GT67SRlFa/root/content" alt=""&gt;
+&lt;h3 id=&#34;pump--dopamine&#34;&gt;Pump &amp;amp; Dopamine&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;https://api.onedrive.com/v1.0/shares/s!Aq_WMf6dXAH_gURsb28GT67SRlFa/root/content&#34; alt=&#34;&#34;&gt;
 pump模型和多巴胺模型是非常相似的。Dopamine的模型包含四个部分“cue-craving-respond-reward”，前期的Cue是信号(Pump)，Craving是下单，Respond的是(Kol晒单，buy the dip)最后的reward是 财务激励/社交认同。&lt;/p&gt;
 &lt;p&gt;当Cue发生的时候用户的多巴胺会快速提高，看到50%收益率会非常兴奋，从项目经营者角度，前期真实参与者很少的情况下，大概率是左手倒右手做出来的成交量和价格。随着Pump休止，用户的多巴胺会下降，进入Craving状态。&lt;/p&gt;
 &lt;p&gt;这一状态中，多巴胺波谷会吸引用户下单，潜意识里 “总要做些什么吧？”。这时候项目方要重点关注，Pump后的自然成交量，这是是用户倾向的重要指标。&lt;/p&gt;
@@ -51,22 +136,33 @@ pump模型和多巴胺模型是非常相似的。Dopamine的模型包含四个�
 &lt;p&gt;有人会质疑“为什么Meme这种没核心的东西能够奏效”？君子可共患难，可难共安乐；小人相反，可共安乐，但不可共患难。秀才造反三年不成，左翼的内部矛盾远远比右翼多得多，团结的难度也大的多。利益是建立合作最简单的机制，利益的重复是可以让人失智的，只要利益源源不断，人们的合作就可以亲密无间。 只要做市商足够有实力，总有内心不成熟的用户加入这场闹剧。&lt;/p&gt;
 &lt;p&gt;Meme的兴起核心是满足韭菜用户的心理需求，高翻身预期(&amp;ldquo;500%涨幅&amp;rdquo;)，高身份认同(&amp;ldquo;都是PEPE，都是Ben&amp;rdquo;)，高参与感（“群聊话题”），高社交价值(&amp;ldquo;Meme研究专家，盈利晒单&amp;rdquo;)，高在场感(&amp;ldquo;我在早期买过Meme&amp;rdquo;)。投资Meme相当于，廉价上一次电视，廉价参与了一次集体事件，廉价获得了组织认同，廉价获得了社交地位。实质是一场消费行为。&lt;/p&gt;
 &lt;p&gt;项目方使用Pump&amp;amp;Dump就能对用户批量生产廉价dopamine，等同于心理按摩。怎么才能让这个按摩更丝滑呢？Reward更多元，Cue更普遍，Action更易参与。&lt;/p&gt;
-&lt;h3 id="variable-reward怎样生产心理dopamine"&gt;Variable Reward&amp;ndash;怎样生产心理Dopamine？&lt;/h3&gt;
-&lt;p&gt;按照我们前面“Cue-Craving-Respond” 模型，我们可以把多巴胺模型产品化“Cue（Trigger）-Craving（Action）-Respond(Variable Reward)” 。 variable rewards 是最值得一提的斯金纳B. F. Skinner在50年前将Rewards 分成三类：&lt;/p&gt;
+&lt;h3 id=&#34;variable-reward怎样生产心理dopamine&#34;&gt;Variable Reward&amp;ndash;怎样生产心理Dopamine？&lt;/h3&gt;
+&lt;p&gt;按照我们前面“Cue-Craving-Respond” 模型，我们可以把多巴胺模型产品化“Cue（Trigger）-Craving（Action）-Respond(Variable Reward)”  。 variable rewards 是最值得一提的斯金纳B. F. Skinner在50年前将Rewards 分成三类：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;the tribe。社交激励&lt;/li&gt;
 &lt;li&gt;the hunt。利益刺激&lt;/li&gt;
 &lt;li&gt;the self。能力成就驱动&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;在Meme上我们可以看到。Pump在两个意义上的影响，其一是流量作用，另一个就是塑造投资人行为上的。具体来讲：当MM快速Pump的时候，如果社区观念一致抛压较少，投资人的少量筹码即可给予巨大的激励，一来通过billboard传播，二来鼓励既得利益的用户Sharing，对于用户而言，即是hunt reward 也是tribe reward。鼓励晒单(&amp;ldquo;尤其是因为项目改变生活的&amp;rdquo;)。一方面巩固了存量投资人的基本版，另一方面通过存量投资人的赚钱效应扩展了对增量投资人的曝光。&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://api.onedrive.com/v1.0/shares/s!Aq_WMf6dXAH_gUXhcrRBV2OL0iQm/root/content" alt=""&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://api.onedrive.com/v1.0/shares/s!Aq_WMf6dXAH_gUXhcrRBV2OL0iQm/root/content&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;有人说，链上博才更公平，可群体要的是公平么？不，要的是dopamine。要的是被认可，要的是被尊重，要的是无限在场。Pump了“你看我一天就有那么多收益！”，底部了“你看我抄底，我发现价值机会”，盘整了“你看我和社区共荣辱，这个项目我是坚定看好的。”&lt;/p&gt;
-&lt;h3 id="怎样让cue无处不在crypto的流量池模型"&gt;怎样让Cue无处不在？&amp;ndash;Crypto的流量池模型&lt;/h3&gt;
+&lt;h3 id=&#34;怎样让cue无处不在crypto的流量池模型&#34;&gt;怎样让Cue无处不在？&amp;ndash;Crypto的流量池模型&lt;/h3&gt;
 &lt;p&gt;看抖音多的朋友应该很熟悉一些常见话术 “各位粉丝记得点亮左上角的粉丝灯牌”，“认为主播这个观点6得请发个666” ，“大家一起给主播点点赞，咱们人气到5000，就再发车” 。这些话术的存在意义在于迎合抖音规则，将直播间推向更大的流量池，也就是说满足”点赞热度“”互动热度“”“粉丝灯牌”等一系列指标的就可以获得更大曝光，得到更多销售交易的机会。&lt;/p&gt;
 &lt;p&gt;在Crypto当中也存在这样的流量池模型，满足特定条件会得到升舱，一般有那么几种升舱逻辑，TX“交易量”，“gas消耗量”，“Top Gainer”，“Liquity Pool”，“TVL”，“Cex”，“Community”，“资方”。当特定条件满足的时候，你就可以撬动流量池。想象一个香槟塔模型，一层是cex banner，二层是dex billboard，三层是Kol/Community。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;假设一个Meme币小项目从底层做起的话，他应该怎么搞momentum呢？“ &lt;strong&gt;主抓第二层，谈判第三层。&lt;/strong&gt;&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;假设Alice做了一个叫$Normal的meme项目，在一个市场平淡的早晨，如果她突然Pump，奇袭成功，登上了各个Dashboard的Top Gainer榜单。正巧，一个叫Ben的influencer看到了这个项目，并啧啧称奇。这时候我们说，Alice阶段性成功了，她成功在流量战线上撕开一个缺口。&lt;/p&gt;</description></item><item><title>日报写作和必要心态</title><link>/posts/daily_rountine_and_mindset/</link><pubDate>Tue, 09 May 2023 08:26:22 +0800</pubDate><guid>/posts/daily_rountine_and_mindset/</guid><description>&lt;p&gt;每日的总结：（研究）对外明确贡献，评价贡献，站在消费者眼光看内容；（开发）对内梳理流程，提炼需求，站在效率角度看内容生产；（CEO）最终产生组织认同和社会影响，站在全局角度看局部贡献。&lt;/p&gt;
+&lt;p&gt;假设Alice做了一个叫$Normal的meme项目，在一个市场平淡的早晨，如果她突然Pump，奇袭成功，登上了各个Dashboard的Top Gainer榜单。正巧，一个叫Ben的influencer看到了这个项目，并啧啧称奇。这时候我们说，Alice阶段性成功了，她成功在流量战线上撕开一个缺口。&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>日报写作和必要心态</title>
+      <link>//localhost:1313/posts/daily_rountine_and_mindset/</link>
+      <pubDate>Tue, 09 May 2023 08:26:22 +0800</pubDate>
+      
+      <guid>//localhost:1313/posts/daily_rountine_and_mindset/</guid>
+      
+      <description>&lt;p&gt;每日的总结：（研究）对外明确贡献，评价贡献，站在消费者眼光看内容；（开发）对内梳理流程，提炼需求，站在效率角度看内容生产；（CEO）最终产生组织认同和社会影响，站在全局角度看局部贡献。&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;日报的产出。
@@ -84,19 +180,52 @@ pump模型和多巴胺模型是非常相似的。Dopamine的模型包含四个�
 &lt;p&gt;一些注意点：
 关注：1）把自己套入到开发，产品，CEO的身份当中去，然后才开始工作。明确不同工作未来开放生态的可能性。2）不要沉迷细节忘记方向，也不要沉迷方向不关注细节。3）把整个过程当做一个社会试验来尝试。社会试验的故事性非常重要。关注社会试验的教育意义：比如哪些不懂？哪些未知会影响我们的行动？我们会面临哪些困难？要从第三方视角观察我们整个行动。&lt;/p&gt;
 &lt;/li&gt;
-&lt;/ol&gt;</description></item><item><title>About</title><link>/pages/about/</link><pubDate>Thu, 04 May 2023 00:00:00 +0000</pubDate><guid>/pages/about/</guid><description>&lt;p&gt;我是一个写字的人，在这里我将尽可能的记录我所有的思考。&lt;/p&gt;</description></item><item><title>How to enable table of content ?</title><link>/posts/table-of-content/</link><pubDate>Tue, 02 May 2023 00:00:00 +0000</pubDate><guid>/posts/table-of-content/</guid><description>&lt;h2 id="table-of-content"&gt;Table of content&lt;/h2&gt;
+&lt;/ol&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>//localhost:1313/pages/about/</link>
+      <pubDate>Thu, 04 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/pages/about/</guid>
+      
+      <description>&lt;p&gt;我是一个写字的人，在这里我将尽可能的记录我所有的思考。&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>How to enable table of content ?</title>
+      <link>//localhost:1313/posts/table-of-content/</link>
+      <pubDate>Tue, 02 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/posts/table-of-content/</guid>
+      
+      <description>&lt;h2 id=&#34;table-of-content&#34;&gt;Table of content&lt;/h2&gt;
 &lt;p&gt;This theme supports displaying table of content in blog posts.&lt;/p&gt;
 &lt;p&gt;To enable it, globally set &lt;code&gt;toc&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt; in &lt;code&gt;config.toml&lt;/code&gt;:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-toml" data-lang="toml"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;[&lt;span style="color:#a6e22e"&gt;params&lt;/span&gt;]
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;toc&lt;/span&gt; = &lt;span style="color:#66d9ef"&gt;true&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;params&lt;/span&gt;]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;toc&lt;/span&gt; = &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This will enable table of content for all posts. If you want to enable it for a specific post, add &lt;code&gt;toc = true&lt;/code&gt; to the front matter of the post:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-yaml" data-lang="yaml"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;---
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;title&lt;/span&gt;: &lt;span style="color:#ae81ff"&gt;How to enable table of content&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;date&lt;/span&gt;: &lt;span style="color:#e6db74"&gt;2023-05-02&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;toc&lt;/span&gt;: &lt;span style="color:#66d9ef"&gt;true&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;---
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>关于人生发展的28条心得</title><link>/posts/%E7%AC%94%E8%AE%B0%E5%85%B3%E4%BA%8E%E4%BA%BA%E7%94%9F%E5%8F%91%E5%B1%95%E7%9A%8428%E6%9D%A1%E5%BF%83%E5%BE%97/</link><pubDate>Tue, 02 May 2023 00:00:00 +0000</pubDate><guid>/posts/%E7%AC%94%E8%AE%B0%E5%85%B3%E4%BA%8E%E4%BA%BA%E7%94%9F%E5%8F%91%E5%B1%95%E7%9A%8428%E6%9D%A1%E5%BF%83%E5%BE%97/</guid><description>&lt;h1 id="冬天关于人生发展的28条心得"&gt;冬天，关于人生发展的28条心得&lt;/h1&gt;
-&lt;p&gt;&lt;a href="http://mp.weixin.qq.com/s?__biz=MzA3MzM0MjUyMQ==&amp;amp;mid=2652153237&amp;amp;idx=1&amp;amp;sn=a18190dec8e34f22a848c87dee9af863&amp;amp;chksm=84f08ec3b38707d52735d2573df0b96cbb8c0aa97fe203eff83842511a323604fb7137b75b92&amp;amp;mpshare=1&amp;amp;scene=1&amp;amp;srcid=0127m3adJN2k1FG3RZiO36Ty&amp;amp;sharer_sharetime=1674830557954&amp;amp;sharer_shareid=4232c2aad1ac3c28307bfe23153586bb#rd"&gt;mp.weixin.qq.com&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;---
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;title&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;How to enable table of content&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;date&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;2023-05-02&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;toc&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;---
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>关于人生发展的28条心得</title>
+      <link>//localhost:1313/posts/%E7%AC%94%E8%AE%B0%E5%85%B3%E4%BA%8E%E4%BA%BA%E7%94%9F%E5%8F%91%E5%B1%95%E7%9A%8428%E6%9D%A1%E5%BF%83%E5%BE%97/</link>
+      <pubDate>Tue, 02 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/posts/%E7%AC%94%E8%AE%B0%E5%85%B3%E4%BA%8E%E4%BA%BA%E7%94%9F%E5%8F%91%E5%B1%95%E7%9A%8428%E6%9D%A1%E5%BF%83%E5%BE%97/</guid>
+      
+      <description>&lt;h1 id=&#34;冬天关于人生发展的28条心得&#34;&gt;冬天，关于人生发展的28条心得&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&#34;http://mp.weixin.qq.com/s?__biz=MzA3MzM0MjUyMQ==&amp;amp;mid=2652153237&amp;amp;idx=1&amp;amp;sn=a18190dec8e34f22a848c87dee9af863&amp;amp;chksm=84f08ec3b38707d52735d2573df0b96cbb8c0aa97fe203eff83842511a323604fb7137b75b92&amp;amp;mpshare=1&amp;amp;scene=1&amp;amp;srcid=0127m3adJN2k1FG3RZiO36Ty&amp;amp;sharer_sharetime=1674830557954&amp;amp;sharer_shareid=4232c2aad1ac3c28307bfe23153586bb#rd&#34;&gt;mp.weixin.qq.com&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;自己为自己的决策支付了什么溢价。你是否拿到这个溢价了。比如，我当年放弃学术圈，直接创业，那么，是否拿到了创业的溢价？——拿到了。28岁左右的时候，实现了小小的财务自由。既然拿到了，就没什么遗憾了。而当年在学术上留下的遗憾，今天能否用另一种形式解决？——这就是&lt;strong&gt;道统、学统与文统&lt;/strong&gt;。当数十本书出版完毕之后，那么，你是不是在大学任教，还重要吗？不重要。这就是真实的人生决策。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;blockquote&gt;
@@ -125,5 +254,32 @@ pump模型和多巴胺模型是非常相似的。Dopamine的模型包含四个�
 &lt;p&gt;这个写的非常好！
 也向我们展示了整个&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;如果你做了好人好事，你不收奖励，那么其他人也会受影响，不敢收。最后整个国家的好人好事反而少了。 &amp;gt; 这类不对结果负责的行为，最后只会导致整个团队的风格是鼓励辛苦，而不是鼓励结果。&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;这是一个测试页面，第一篇摘抄。&lt;/p&gt;</description></item><item><title>Placeholder Text</title><link>/posts/placeholder-text/</link><pubDate>Tue, 07 Feb 2023 00:00:00 +0000</pubDate><guid>/posts/placeholder-text/</guid><description>&lt;p&gt;Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;</description></item><item><title>Emoji Support</title><link>/posts/emoji-support/</link><pubDate>Wed, 01 Feb 2023 00:00:00 +0000</pubDate><guid>/posts/emoji-support/</guid><description>&lt;p&gt;Emoji can be enabled in a Hugo project in a number of ways.&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;如果你做了好人好事，你不收奖励，那么其他人也会受影响，不敢收。最后整个国家的好人好事反而少了。 &amp;gt;  这类不对结果负责的行为，最后只会导致整个团队的风格是鼓励辛苦，而不是鼓励结果。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;这是一个测试页面，第一篇摘抄。&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>Placeholder Text</title>
+      <link>//localhost:1313/posts/placeholder-text/</link>
+      <pubDate>Tue, 07 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/posts/placeholder-text/</guid>
+      
+      <description>&lt;p&gt;Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>Emoji Support</title>
+      <link>//localhost:1313/posts/emoji-support/</link>
+      <pubDate>Wed, 01 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>//localhost:1313/posts/emoji-support/</guid>
+      
+      <description>&lt;p&gt;Emoji can be enabled in a Hugo project in a number of ways.&lt;/p&gt;</description>
+      
+    </item>
+    
+  </channel>
+</rss>
