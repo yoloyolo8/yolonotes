@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on </title>
-    <link>//localhost:1313/posts/</link>
+    <link>/posts/</link>
     <description>Recent content in Posts on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 13 Oct 2025 08:26:09 +0800</lastBuildDate><atom:link href="//localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 13 Oct 2025 08:26:09 +0800</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>文科生学 AI 之移动端部署 Termux&#43; Ubuntu（proot 容器）&#43;Qwencode</title>
-      <link>//localhost:1313/posts/%E6%96%87%E7%A7%91%E7%94%9F%E5%AD%A6-ai-%E4%B9%8B%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%83%A8%E7%BD%B2-termux-&#43;-ubuntuproot-%E5%AE%B9%E5%99%A8&#43;qwencode/</link>
+      <link>/posts/%E6%96%87%E7%A7%91%E7%94%9F%E5%AD%A6-ai-%E4%B9%8B%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%83%A8%E7%BD%B2-termux-&#43;-ubuntuproot-%E5%AE%B9%E5%99%A8&#43;qwencode/</link>
       <pubDate>Mon, 13 Oct 2025 08:26:09 +0800</pubDate>
       
-      <guid>//localhost:1313/posts/%E6%96%87%E7%A7%91%E7%94%9F%E5%AD%A6-ai-%E4%B9%8B%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%83%A8%E7%BD%B2-termux-&#43;-ubuntuproot-%E5%AE%B9%E5%99%A8&#43;qwencode/</guid>
+      <guid>/posts/%E6%96%87%E7%A7%91%E7%94%9F%E5%AD%A6-ai-%E4%B9%8B%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%83%A8%E7%BD%B2-termux-&#43;-ubuntuproot-%E5%AE%B9%E5%99%A8&#43;qwencode/</guid>
       
       <description>&lt;p&gt;文科生学 AI 之移动端部署 &lt;strong&gt;Termux&lt;/strong&gt; + Ubuntu（proot 容器）+Qwencode&lt;/p&gt;
 &lt;blockquote&gt;
@@ -24,7 +24,6 @@
 &lt;li&gt;在安卓手机上用 &lt;strong&gt;Termux&lt;/strong&gt; + &lt;strong&gt;Ubuntu（proot 容器）&lt;/strong&gt; 安装并运行 &lt;strong&gt;qwen-code&lt;/strong&gt;。&lt;/li&gt;
 &lt;li&gt;让 qwen 能&lt;strong&gt;直接访问手机本地文件夹&lt;/strong&gt;（如 &lt;code&gt;/sdcard/Projects&lt;/code&gt;），进行整理、重写、批注、搜索等。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;hr&gt;
 &lt;h2 id=&#34;2-解决问题所需要的知识用生活比喻讲清楚&#34;&gt;2. 解决问题所需要的知识（用生活比喻讲清楚）&lt;/h2&gt;
 &lt;h3 id=&#34;21-三层结构房子过道工作室&#34;&gt;2.1 三层结构（房子—过道—工作室）&lt;/h3&gt;
 &lt;ul&gt;
@@ -39,7 +38,7 @@
 &lt;h2 id=&#34;4-实践代码完全可复制&#34;&gt;4. 实践代码（完全可复制）&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;一台安卓手机即可。&lt;/strong&gt;&lt;br&gt;
-以下每一步都尽量写全了。务必按顺序来，失败就从失败那步往回看。&lt;/p&gt;&lt;/blockquote&gt;
+以下每一步都尽量写全了。务必按顺序来，失败就从失败那步往回看&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h3 id=&#34;41-安装-termux-并做基础准备&#34;&gt;4.1 安装 Termux 并做基础准备&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;安装 &lt;strong&gt;Termux&lt;/strong&gt;（推荐 F-Droid 或官方可信来源）。&lt;/li&gt;
@@ -60,10 +59,10 @@
     
     <item>
       <title>测试：obsidian使用shell command发布hugo blog</title>
-      <link>//localhost:1313/posts/%E6%B5%8B%E8%AF%95obsidian%E4%BD%BF%E7%94%A8shell-command%E5%8F%91%E5%B8%83hugo-blog/</link>
+      <link>/posts/%E6%B5%8B%E8%AF%95obsidian%E4%BD%BF%E7%94%A8shell-command%E5%8F%91%E5%B8%83hugo-blog/</link>
       <pubDate>Thu, 09 Oct 2025 08:26:09 +0800</pubDate>
       
-      <guid>//localhost:1313/posts/%E6%B5%8B%E8%AF%95obsidian%E4%BD%BF%E7%94%A8shell-command%E5%8F%91%E5%B8%83hugo-blog/</guid>
+      <guid>/posts/%E6%B5%8B%E8%AF%95obsidian%E4%BD%BF%E7%94%A8shell-command%E5%8F%91%E5%B8%83hugo-blog/</guid>
       
       <description>&lt;p&gt;文科生用obsidian写md，然后特定扔到vscode里面的terminal去上传。离开了vscode开terminal就特别没有安全感。以前写脚本心里是有挑战和抗拒的，现在有了ai就好很多。ai赋能文科生。
 Pasted imag&lt;/p&gt;
@@ -110,10 +109,10 @@ Writing objects: 100% (3/3), 745 bytes | 745.00 KiB/s, done.
     
     <item>
       <title>Crypto, Dopamine 和 新消费主义</title>
-      <link>//localhost:1313/posts/crypto-dopamine-%E5%92%8C-%E6%96%B0%E6%B6%88%E8%B4%B9%E4%B8%BB%E4%B9%89/</link>
+      <link>/posts/crypto-dopamine-%E5%92%8C-%E6%96%B0%E6%B6%88%E8%B4%B9%E4%B8%BB%E4%B9%89/</link>
       <pubDate>Tue, 16 May 2023 13:58:28 +0800</pubDate>
       
-      <guid>//localhost:1313/posts/crypto-dopamine-%E5%92%8C-%E6%96%B0%E6%B6%88%E8%B4%B9%E4%B8%BB%E4%B9%89/</guid>
+      <guid>/posts/crypto-dopamine-%E5%92%8C-%E6%96%B0%E6%B6%88%E8%B4%B9%E4%B8%BB%E4%B9%89/</guid>
       
       <description>&lt;blockquote&gt;
 &lt;p&gt;行为与观念的自洽 是 最自由的状态。&lt;/p&gt;&lt;/blockquote&gt;
@@ -157,10 +156,10 @@ pump模型和多巴胺模型是非常相似的。Dopamine的模型包含四个�
     
     <item>
       <title>日报写作和必要心态</title>
-      <link>//localhost:1313/posts/daily_rountine_and_mindset/</link>
+      <link>/posts/daily_rountine_and_mindset/</link>
       <pubDate>Tue, 09 May 2023 08:26:22 +0800</pubDate>
       
-      <guid>//localhost:1313/posts/daily_rountine_and_mindset/</guid>
+      <guid>/posts/daily_rountine_and_mindset/</guid>
       
       <description>&lt;p&gt;每日的总结：（研究）对外明确贡献，评价贡献，站在消费者眼光看内容；（开发）对内梳理流程，提炼需求，站在效率角度看内容生产；（CEO）最终产生组织认同和社会影响，站在全局角度看局部贡献。&lt;/p&gt;
 &lt;ol&gt;
@@ -186,10 +185,10 @@ pump模型和多巴胺模型是非常相似的。Dopamine的模型包含四个�
     
     <item>
       <title>How to enable table of content ?</title>
-      <link>//localhost:1313/posts/table-of-content/</link>
+      <link>/posts/table-of-content/</link>
       <pubDate>Tue, 02 May 2023 00:00:00 +0000</pubDate>
       
-      <guid>//localhost:1313/posts/table-of-content/</guid>
+      <guid>/posts/table-of-content/</guid>
       
       <description>&lt;h2 id=&#34;table-of-content&#34;&gt;Table of content&lt;/h2&gt;
 &lt;p&gt;This theme supports displaying table of content in blog posts.&lt;/p&gt;
@@ -208,10 +207,10 @@ pump模型和多巴胺模型是非常相似的。Dopamine的模型包含四个�
     
     <item>
       <title>关于人生发展的28条心得</title>
-      <link>//localhost:1313/posts/%E7%AC%94%E8%AE%B0%E5%85%B3%E4%BA%8E%E4%BA%BA%E7%94%9F%E5%8F%91%E5%B1%95%E7%9A%8428%E6%9D%A1%E5%BF%83%E5%BE%97/</link>
+      <link>/posts/%E7%AC%94%E8%AE%B0%E5%85%B3%E4%BA%8E%E4%BA%BA%E7%94%9F%E5%8F%91%E5%B1%95%E7%9A%8428%E6%9D%A1%E5%BF%83%E5%BE%97/</link>
       <pubDate>Tue, 02 May 2023 00:00:00 +0000</pubDate>
       
-      <guid>//localhost:1313/posts/%E7%AC%94%E8%AE%B0%E5%85%B3%E4%BA%8E%E4%BA%BA%E7%94%9F%E5%8F%91%E5%B1%95%E7%9A%8428%E6%9D%A1%E5%BF%83%E5%BE%97/</guid>
+      <guid>/posts/%E7%AC%94%E8%AE%B0%E5%85%B3%E4%BA%8E%E4%BA%BA%E7%94%9F%E5%8F%91%E5%B1%95%E7%9A%8428%E6%9D%A1%E5%BF%83%E5%BE%97/</guid>
       
       <description>&lt;h1 id=&#34;冬天关于人生发展的28条心得&#34;&gt;冬天，关于人生发展的28条心得&lt;/h1&gt;
 &lt;p&gt;&lt;a href=&#34;http://mp.weixin.qq.com/s?__biz=MzA3MzM0MjUyMQ==&amp;amp;mid=2652153237&amp;amp;idx=1&amp;amp;sn=a18190dec8e34f22a848c87dee9af863&amp;amp;chksm=84f08ec3b38707d52735d2573df0b96cbb8c0aa97fe203eff83842511a323604fb7137b75b92&amp;amp;mpshare=1&amp;amp;scene=1&amp;amp;srcid=0127m3adJN2k1FG3RZiO36Ty&amp;amp;sharer_sharetime=1674830557954&amp;amp;sharer_shareid=4232c2aad1ac3c28307bfe23153586bb#rd&#34;&gt;mp.weixin.qq.com&lt;/a&gt;&lt;/p&gt;
@@ -250,10 +249,10 @@ pump模型和多巴胺模型是非常相似的。Dopamine的模型包含四个�
     
     <item>
       <title>Placeholder Text</title>
-      <link>//localhost:1313/posts/placeholder-text/</link>
+      <link>/posts/placeholder-text/</link>
       <pubDate>Tue, 07 Feb 2023 00:00:00 +0000</pubDate>
       
-      <guid>//localhost:1313/posts/placeholder-text/</guid>
+      <guid>/posts/placeholder-text/</guid>
       
       <description>&lt;p&gt;Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;</description>
       
@@ -261,10 +260,10 @@ pump模型和多巴胺模型是非常相似的。Dopamine的模型包含四个�
     
     <item>
       <title>Emoji Support</title>
-      <link>//localhost:1313/posts/emoji-support/</link>
+      <link>/posts/emoji-support/</link>
       <pubDate>Wed, 01 Feb 2023 00:00:00 +0000</pubDate>
       
-      <guid>//localhost:1313/posts/emoji-support/</guid>
+      <guid>/posts/emoji-support/</guid>
       
       <description>&lt;p&gt;Emoji can be enabled in a Hugo project in a number of ways.&lt;/p&gt;</description>
       

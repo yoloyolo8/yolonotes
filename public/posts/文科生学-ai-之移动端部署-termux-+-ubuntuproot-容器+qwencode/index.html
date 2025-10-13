@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<html lang="en"><head><meta charset="utf-8">
 <meta http-equiv="content-type" content="text/html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -18,7 +18,7 @@
 <meta property="og:locale" content="en" />
 <meta name="language" content="en" />
 
-  <link rel="alternate" hreflang="en" href="//localhost:1313/posts/%E6%96%87%E7%A7%91%E7%94%9F%E5%AD%A6-ai-%E4%B9%8B%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%83%A8%E7%BD%B2-termux-&#43;-ubuntuproot-%E5%AE%B9%E5%99%A8&#43;qwencode/" title="" />
+  <link rel="alternate" hreflang="en" href="/posts/%E6%96%87%E7%A7%91%E7%94%9F%E5%AD%A6-ai-%E4%B9%8B%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%83%A8%E7%BD%B2-termux-&#43;-ubuntuproot-%E5%AE%B9%E5%99%A8&#43;qwencode/" title="" />
 
 
 
@@ -31,7 +31,7 @@
     <meta property="og:type" content="article" />
     <meta property="og:article:published_time" content=2025-10-13T08:26:09&#43;0800 />
     <meta property="article:published_time" content=2025-10-13T08:26:09&#43;0800 />
-    <meta property="og:url" content="//localhost:1313/posts/%E6%96%87%E7%A7%91%E7%94%9F%E5%AD%A6-ai-%E4%B9%8B%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%83%A8%E7%BD%B2-termux-&#43;-ubuntuproot-%E5%AE%B9%E5%99%A8&#43;qwencode/" />
+    <meta property="og:url" content="/posts/%E6%96%87%E7%A7%91%E7%94%9F%E5%AD%A6-ai-%E4%B9%8B%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%83%A8%E7%BD%B2-termux-&#43;-ubuntuproot-%E5%AE%B9%E5%99%A8&#43;qwencode/" />
 
     
     <meta property="og:article:author" content="Yolo" />
@@ -71,7 +71,7 @@
 <meta name="generator" content="Hugo 0.151.0">
 
     
-    <meta property="og:url" content="//localhost:1313/posts/%E6%96%87%E7%A7%91%E7%94%9F%E5%AD%A6-ai-%E4%B9%8B%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%83%A8%E7%BD%B2-termux-&#43;-ubuntuproot-%E5%AE%B9%E5%99%A8&#43;qwencode/">
+    <meta property="og:url" content="/posts/%E6%96%87%E7%A7%91%E7%94%9F%E5%AD%A6-ai-%E4%B9%8B%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%83%A8%E7%BD%B2-termux-&#43;-ubuntuproot-%E5%AE%B9%E5%99%A8&#43;qwencode/">
   <meta property="og:title" content="文科生学 AI 之移动端部署 Termux&#43; Ubuntu（proot 容器）&#43;Qwencode">
   <meta property="og:description" content="文科生学 AI 之移动端部署 Termux &#43; Ubuntu（proot 容器）&#43;Qwencode
 适合人群：对 AI 感兴趣、电脑不一定强、只有一部安卓手机的文科大学生。
@@ -79,7 +79,7 @@
 1. 目标 在安卓手机上用 Termux &#43; Ubuntu（proot 容器） 安装并运行 qwen-code。 让 qwen 能直接访问手机本地文件夹（如 /sdcard/Projects），进行整理、重写、批注、搜索等。 2. 解决问题所需要的知识（用生活比喻讲清楚） 2.1 三层结构（房子—过道—工作室） Android（房子地基）：你的手机系统。 Termux（过道）：在安卓里开出一个“走廊”，能用命令行、装工具。 Ubuntu in proot（工作室）：在走廊里搭了个“工作室”，更完整、更稳定，适合安装 qwen-code。 记住：qwen 是在 Ubuntu “工作室”里跑的，不是直接跑在安卓上。
 2.2 “绑定挂载”（bind）不是复制 把手机的某个文件夹（如 /sdcard/Projects）映射进 Ubuntu（比如映射为 /mnt/sdcard）。 这样 qwen 在 Ubuntu 里改 /mnt/sdcard/…，等于改了你手机原文件，没有复制，是同一份。
 4. 实践代码（完全可复制） 一台安卓手机即可。
-以下每一步都尽量写全了。务必按顺序来，失败就从失败那步往回看。
+以下每一步都尽量写全了。务必按顺序来，失败就从失败那步往回看
 4.1 安装 Termux 并做基础准备 安装 Termux（推荐 F-Droid 或官方可信来源）。 打开 Termux，执行： pkg update -y pkg upgrade -y termux-setup-storage # 弹出授权对话框 → 允许 4.2 安装 proot-distro 并拉起 Ubuntu pkg install -y proot-distro proot-distro install ubuntu 若失败重来：
 proot-distro remove ubuntu &amp;&amp; proot-distro install ubuntu">
   <meta property="og:locale" content="en">
@@ -99,14 +99,14 @@ proot-distro remove ubuntu &amp;&amp; proot-distro install ubuntu">
 1. 目标 在安卓手机上用 Termux &#43; Ubuntu（proot 容器） 安装并运行 qwen-code。 让 qwen 能直接访问手机本地文件夹（如 /sdcard/Projects），进行整理、重写、批注、搜索等。 2. 解决问题所需要的知识（用生活比喻讲清楚） 2.1 三层结构（房子—过道—工作室） Android（房子地基）：你的手机系统。 Termux（过道）：在安卓里开出一个“走廊”，能用命令行、装工具。 Ubuntu in proot（工作室）：在走廊里搭了个“工作室”，更完整、更稳定，适合安装 qwen-code。 记住：qwen 是在 Ubuntu “工作室”里跑的，不是直接跑在安卓上。
 2.2 “绑定挂载”（bind）不是复制 把手机的某个文件夹（如 /sdcard/Projects）映射进 Ubuntu（比如映射为 /mnt/sdcard）。 这样 qwen 在 Ubuntu 里改 /mnt/sdcard/…，等于改了你手机原文件，没有复制，是同一份。
 4. 实践代码（完全可复制） 一台安卓手机即可。
-以下每一步都尽量写全了。务必按顺序来，失败就从失败那步往回看。
+以下每一步都尽量写全了。务必按顺序来，失败就从失败那步往回看
 4.1 安装 Termux 并做基础准备 安装 Termux（推荐 F-Droid 或官方可信来源）。 打开 Termux，执行： pkg update -y pkg upgrade -y termux-setup-storage # 弹出授权对话框 → 允许 4.2 安装 proot-distro 并拉起 Ubuntu pkg install -y proot-distro proot-distro install ubuntu 若失败重来：
 proot-distro remove ubuntu &amp;&amp; proot-distro install ubuntu">
 
 
     
 
-    <link rel="canonical" href="//localhost:1313/posts/%E6%96%87%E7%A7%91%E7%94%9F%E5%AD%A6-ai-%E4%B9%8B%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%83%A8%E7%BD%B2-termux-&#43;-ubuntuproot-%E5%AE%B9%E5%99%A8&#43;qwencode/">
+    <link rel="canonical" href="/posts/%E6%96%87%E7%A7%91%E7%94%9F%E5%AD%A6-ai-%E4%B9%8B%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%83%A8%E7%BD%B2-termux-&#43;-ubuntuproot-%E5%AE%B9%E5%99%A8&#43;qwencode/">
     <link href="/style.min.2d921c18cf1ec555ffc03d59a8adc211c402c68c930c27d6a0c306ab175a8d09.css" rel="stylesheet">
     <link href="/code-highlight.min.706d31975fec544a864cb7f0d847a73ea55ca1df91bf495fd12a177138d807cf.css" rel="stylesheet">
 
@@ -120,7 +120,7 @@ proot-distro remove ubuntu &amp;&amp; proot-distro install ubuntu">
 
 
 
-<link rel="manifest" href="//localhost:1313/site.webmanifest">
+<link rel="manifest" href="/site.webmanifest">
 
 <meta name="msapplication-config" content="/browserconfig.xml">
 <meta name="msapplication-TileColor" content="#2d89ef">
@@ -131,14 +131,15 @@ proot-distro remove ubuntu &amp;&amp; proot-distro install ubuntu">
 
     
     
+    
 </head>
 <body data-theme = "" class="notransition">
 
-<script src="/js/theme.js"></script>
+<script src="/js/theme.min.8961c317c5b88b953fe27525839672c9343f1058ab044696ca225656c8ba2ab0.js" integrity="sha256-iWHDF8W4i5U/4nUlg5ZyyTQ/EFirBEaWyiJWVsi6KrA="></script>
 
 <div class="navbar" role="navigation">
     <nav class="menu" aria-label="Main Navigation">
-        <a href="//localhost:1313/" class="logo">
+        <a href="/" class="logo">
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" 
 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" 
 stroke-linejoin="round" class="feather feather-home">
@@ -255,7 +256,6 @@ stroke-linejoin="round" class="feather feather-home">
 <li>在安卓手机上用 <strong>Termux</strong> + <strong>Ubuntu（proot 容器）</strong> 安装并运行 <strong>qwen-code</strong>。</li>
 <li>让 qwen 能<strong>直接访问手机本地文件夹</strong>（如 <code>/sdcard/Projects</code>），进行整理、重写、批注、搜索等。</li>
 </ul>
-<hr>
 <h2 id="2-解决问题所需要的知识用生活比喻讲清楚">2. 解决问题所需要的知识（用生活比喻讲清楚）</h2>
 <h3 id="21-三层结构房子过道工作室">2.1 三层结构（房子—过道—工作室）</h3>
 <ul>
@@ -270,7 +270,7 @@ stroke-linejoin="round" class="feather feather-home">
 <h2 id="4-实践代码完全可复制">4. 实践代码（完全可复制）</h2>
 <blockquote>
 <p><strong>一台安卓手机即可。</strong><br>
-以下每一步都尽量写全了。务必按顺序来，失败就从失败那步往回看。</p></blockquote>
+以下每一步都尽量写全了。务必按顺序来，失败就从失败那步往回看</p></blockquote>
 <h3 id="41-安装-termux-并做基础准备">4.1 安装 Termux 并做基础准备</h3>
 <ol>
 <li>安装 <strong>Termux</strong>（推荐 F-Droid 或官方可信来源）。</li>
@@ -454,7 +454,7 @@ qwen 改 <code>/mnt/sdcard</code> 就是改 <code>/sdcard</code>。<br>
 
 
     
-    <script async src="//localhost:1313/js/main.js" ></script>
+    <script src="/js/main.min.35f435a5d8eac613c52daa28d8af544a4512337d3e95236e4a4978417b8dcb2f.js" integrity="sha256-NfQ1pdjqxhPFLaoo2K9USkUSM30&#43;lSNuSkl4QXuNyy8="></script>
 
     
 
