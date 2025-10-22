@@ -1,0 +1,25 @@
+{{ define "main" }}
+<div class="wrapper tags">
+    <main class="page-content" aria-label="Tags">
+        <header class="header">
+            <h1 class="header-title">{{ i18n "taxonomy.tags" | default "Tags" }}</h1>
+            <p class="header-subtitle">按照标签浏览所有文章。</p>
+        </header>
+        <div class="tags-grid">
+            {{ range $tag, $pages := sort .Site.Taxonomies.tags }}
+            <section class="tag-card" id="tag-{{ $tag | urlize }}">
+                <h2 class="tag-card-title"><a href="{{ (printf "/tags/%s/" ($tag | urlize)) | relLangURL }}">#{{ $tag }}</a></h2>
+                <ul class="tag-posts">
+                    {{ range $pages.Pages.ByDate.Reverse }}
+                    <li>
+                        <span class="tag-post-date">{{ .Date | time.Format (site.Params.dateFormat | default ":date_short") }}</span>
+                        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                    </li>
+                    {{ end }}
+                </ul>
+            </section>
+            {{ end }}
+        </div>
+    </main>
+</div>
+{{ end }}
