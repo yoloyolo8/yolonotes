@@ -27,6 +27,13 @@ url = "index.xml"
 [params]
   goToTop = true
   toc = true # set to false to disable table of contents 'globally'
+  tocOpen = true
+  [params.subscription]
+    title = "订阅更新"
+    description = "留下邮箱，新文章发布时第一时间通知你。"
+    action = "https://formsubmit.co/your@email.com"
+    placeholder = "you@example.com"
+    buttonText = "订阅"
 
 # Enable emojis globally
 enableEmoji = true
@@ -41,15 +48,21 @@ enableEmoji = true
     url = '/'
     weight = 10
   [[menu.main]]
-    pageRef="posts"
-    name = 'Posts'
-    url = '/posts/'
+    identifier = 'tags'
+    pageRef="tags"
+    name = 'Tags'
+    url = '/tags/'
     weight = 20
+  [[menu.main]]
+    identifier = 'wiki'
+    name = 'Wiki'
+    url = 'https://quartz-yolo.vercel.app/'
+    weight = 30
   [[menu.main]]
     pageRef="about"
     name = 'About'
     url = '/about/'
-    weight = 30
+    weight = 40
 
 
 [params.author]

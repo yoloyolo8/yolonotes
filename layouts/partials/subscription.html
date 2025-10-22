@@ -1,0 +1,15 @@
+{{ $subscription := .Site.Params.subscription }}
+{{ if $subscription.action }}
+<section class="subscription-card" aria-label="Email subscription">
+    <h2 class="subscription-title">{{ $subscription.title | default "订阅新文章" }}</h2>
+    {{ with $subscription.description }}
+    <p class="subscription-description">{{ . }}</p>
+    {{ end }}
+    <form class="subscription-form" action="{{ $subscription.action }}" method="POST" target="_blank">
+        <label class="sr-only" for="newsletter-email">{{ i18n "single.subscribe" | default "Email" }}</label>
+        <input id="newsletter-email" name="email" type="email" required placeholder="{{ $subscription.placeholder | default "you@example.com" }}" />
+        <button type="submit">{{ $subscription.buttonText | default "订阅" }}</button>
+        <input type="hidden" name="_captcha" value="false">
+    </form>
+</section>
+{{ end }}
