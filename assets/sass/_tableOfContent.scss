@@ -1,0 +1,95 @@
+/* Table of contents */
+$bulls-red: #CE1141;
+$bulls-red-hover: darken($bulls-red, 10%);
+$bulls-red-soft: rgba(206, 17, 65, 0.14);
+$bulls-red-marker: rgba(206, 17, 65, 0.45);
+$bulls-red-dark: lighten($bulls-red, 18%);
+
+.toc {
+    margin: 1.5rem 0;
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(206, 17, 65, 0.12);
+    background: linear-gradient(180deg, rgba(255, 239, 244, 0.96) 0%, rgba(253, 244, 247, 0.96) 100%);
+    box-shadow: 0 8px 16px rgba(206, 17, 65, 0.16);
+    transition: box-shadow 150ms ease;
+
+    &:hover {
+        box-shadow: 0 12px 24px rgba(13, 18, 43, 0.12);
+    }
+
+    .toc-title {
+        margin: 0 0 0.75rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: $black;
+    }
+
+    .toc-body {
+        margin: 0;
+        font-size: 0.95rem;
+
+        ul {
+            margin: 0;
+            padding-left: 1.1rem;
+            list-style: none;
+
+            li {
+                position: relative;
+                margin: 0.35rem 0;
+                padding-left: 0.75rem;
+                line-height: 1.6;
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    top: 0.65rem;
+                    width: 6px;
+                    height: 6px;
+                    border-radius: 50%;
+                    background-color: $bulls-red;
+                }
+
+                ul {
+                    margin-top: 0.35rem;
+                }
+            }
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: color 150ms ease, border-color 150ms ease;
+
+            &:hover {
+                color: $bulls-red;
+                border-color: $bulls-red-marker;
+            }
+        }
+    }
+}
+
+.dark .toc {
+    border-color: rgba(240, 106, 140, 0.32);
+    background: linear-gradient(180deg, rgba(30, 19, 23, 0.95) 0%, rgba(34, 21, 26, 0.95) 100%);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+
+    .toc-title {
+        color: $dark-white;
+    }
+
+    .toc-body {
+        a:hover {
+            color: $bulls-red-dark;
+            border-color: rgba(240, 106, 140, 0.42);
+        }
+
+        li::before {
+            background-color: $bulls-red-dark;
+        }
+    }
+}

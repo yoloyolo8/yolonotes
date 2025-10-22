@@ -1,8 +1,12 @@
-
 ---
 title: "Crypto, Dopamine 和 新消费主义"
 date: 2023-05-16T13:58:28+08:00
 draft: false
+tags:
+  - Crypto
+  - 多巴胺
+  - 消费主义
+  - 行为心理
 ---
 
 

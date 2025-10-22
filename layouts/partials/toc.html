@@ -1,0 +1,14 @@
+{{- $toc := .Site.Params.toc -}}
+
+{{- if isset .Params "toc" -}}
+    {{ $toc = .Params.toc }}
+{{- end -}}
+
+{{- if $toc -}}
+<div class="toc toc-inline" aria-label="Table of contents">
+    <h2 class="toc-title">{{ T "single.table_of_contents" }}</h2>
+    <nav class="toc-body">
+        {{ .TableOfContents }}
+    </nav>
+</div>
+{{- end -}}

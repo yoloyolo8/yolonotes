@@ -1,8 +1,13 @@
-﻿---
+---
 title: "测试：obsidian使用shell command发布hugo blog"
 date: 2025-10-09T08:26:09+08:00
 publishDate: 2025-10-09T08:26:12+08:00
 draft: false
+tags:
+  - Obsidian
+  - 自动化
+  - Hugo
+
 ---
 
 

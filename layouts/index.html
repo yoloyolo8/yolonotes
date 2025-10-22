@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{{- $defaultColor := .Site.Params.defaultColor | default "auto" -}}
+
+{{- if eq $defaultColor "dark" -}}
+<html lang="{{ .Site.LanguageCode }}" class="dark">
+{{- else if eq $defaultColor "light" -}}
+<html lang="{{ .Site.LanguageCode }}" class="light">
+{{- else -}}
+<html lang="{{ .Site.LanguageCode }}">
+{{- end -}}
+
+{{- partial "head.html" . -}}
+
+<body data-theme="{{ $defaultColor }}" class="notransition">
+    {{- partial "scriptsBodyStart.html" . -}}
+    {{- partial "header.html" . -}}
+    <div class="wrapper timeline-wrapper">
+        {{ partial "bio" . }}
+        <main aria-label="Content" class="timeline">
+            <h3 class="posts-item-note" aria-label="Recent Posts">{{ T "home.recent_posts" }}</h3>
+            {{ $pagesToShow := where .Site.RegularPages "Type" "in" site.Params.mainSections }}
+            {{ $posts := $pagesToShow.ByDate.Reverse }}
+            {{ range ($posts.GroupByDate "2006") }}
+            <section class="timeline-year">
+                <h4 class="timeline-year-title">{{ .Key }}</h4>
+                <ol class="timeline-items">
+                    {{ range .Pages.ByDate.Reverse }}
+                    <li class="timeline-item">
+                        <div class="timeline-item-date">{{ .Date | time.Format (site.Params.dateFormat | default ":date_short") }}</div>
+                        <div class="timeline-item-body">
+                            <a class="timeline-item-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
+                            {{ with .Summary }}
+                            <p class="timeline-item-summary">{{ . | plainify | truncate 160 }}</p>
+                            {{ else }}
+                            {{ with .Params.description }}
+                            <p class="timeline-item-summary">{{ . | plainify | truncate 160 }}</p>
+                            {{ end }}
+                            {{ end }}
+                            {{ with .Params.tags }}
+                            <ul class="timeline-item-tags">
+                                {{ range . }}
+                                <li><a href="{{ (printf "/tags/%s/" (. | urlize)) | relLangURL }}">#{{ . }}</a></li>
+                                {{ end }}
+                            </ul>
+                            {{ end }}
+                        </div>
+                    </li>
+                    {{ end }}
+                </ol>
+            </section>
+            {{ end }}
+        </main>
+    </div>
+    {{- partial "footer.html" . -}}
+    {{- partial "scriptsBodyEnd.html" . -}}
+</body>
+
+</html>

@@ -1,0 +1,356 @@
+$bulls-red: #CE1141;
+$bulls-red-hover: darken($bulls-red, 8%);
+$bulls-red-soft: rgba(206, 17, 65, 0.12);
+$bulls-red-muted: rgba(206, 17, 65, 0.1);
+$bulls-red-glow: rgba(206, 17, 65, 0.22);
+$bulls-red-dark-base: lighten($bulls-red, 16%);
+$bulls-red-dark-glow: rgba(240, 106, 140, 0.28);
+
+.timeline-wrapper {
+    display: grid;
+    gap: 2rem;
+}
+
+.timeline {
+    position: relative;
+    padding-left: 1rem;
+
+    @include media-query($on-mobile) {
+        padding-left: 0;
+    }
+}
+
+.timeline-year {
+    position: relative;
+    padding-left: 1.75rem;
+    margin-bottom: 2.5rem;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.timeline-year-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: $black;
+}
+
+.timeline-items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-left: 2px solid rgba(206, 17, 65, 0.24);
+}
+
+.timeline-item {
+    position: relative;
+    margin: 0 0 1.75rem;
+    padding-left: 1.75rem;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0.35rem;
+        left: -7px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: $white;
+        border: 2px solid $bulls-red;
+        box-shadow: 0 0 0 3px rgba(206, 17, 65, 0.12);
+    }
+}
+
+.timeline-item-date {
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: $gray;
+    margin-bottom: 0.25rem;
+}
+
+.timeline-item-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: $black;
+    text-decoration: none;
+    transition: color 150ms ease;
+
+    &:hover {
+        color: $bulls-red;
+    }
+}
+
+.timeline-item-summary {
+    margin: 0.4rem 0 0.75rem;
+    color: $gray;
+}
+
+.timeline-item-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    li a {
+        display: inline-block;
+        padding: 0.2rem 0.65rem;
+        border-radius: 999px;
+        background: $bulls-red-muted;
+        color: $bulls-red;
+        font-size: 0.8rem;
+        text-decoration: none;
+        transition: background 150ms ease, color 150ms ease;
+
+        &:hover {
+            background: $bulls-red;
+            color: $white;
+        }
+    }
+}
+
+.subscription-card {
+    margin-top: 2.5rem;
+    padding: 2rem;
+    border-radius: 16px;
+    background: linear-gradient(135deg, $bulls-red-soft, rgba(206, 17, 65, 0.04));
+    border: 1px solid $bulls-red-soft;
+    box-shadow: 0 16px 32px rgba(206, 17, 65, 0.14);
+    text-align: center;
+}
+
+.subscription-title {
+    margin: 0 0 0.5rem;
+    font-size: 1.35rem;
+    font-weight: 600;
+}
+
+.subscription-description {
+    margin: 0 0 1.5rem;
+    color: $gray;
+}
+
+.subscription-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+
+    input[type="email"] {
+        min-width: 240px;
+        padding: 0.75rem 1rem;
+        border-radius: 999px;
+        border: 1px solid rgba(206, 17, 65, 0.28);
+        background-color: $white;
+        font-size: 1rem;
+        transition: border 150ms ease, box-shadow 150ms ease;
+
+        &:focus {
+            outline: none;
+            border-color: $bulls-red;
+            box-shadow: 0 0 0 3px $bulls-red-glow;
+        }
+    }
+
+    button {
+        padding: 0.75rem 1.5rem;
+        border-radius: 999px;
+        border: none;
+        background-color: $bulls-red;
+        color: $white;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 150ms ease, transform 150ms ease;
+
+        &:hover {
+            background-color: $bulls-red-hover;
+            transform: translateY(-1px);
+        }
+    }
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.dark {
+    .timeline-year-title,
+    .timeline-item-title {
+        color: $dark-white;
+    }
+
+    .timeline-items {
+        border-color: rgba(240, 106, 140, 0.32);
+    }
+
+    .timeline-item {
+        &::before {
+            background: $dark-light;
+            border-color: $bulls-red-dark-base;
+            box-shadow: 0 0 0 3px $bulls-red-dark-glow;
+        }
+    }
+
+    .timeline-item-date {
+        color: $dark-gray;
+    }
+
+    .timeline-item-summary {
+        color: $dark-gray;
+    }
+
+    .timeline-item-tags li a {
+        background: rgba(240, 106, 140, 0.2);
+        color: $bulls-red-dark-base;
+
+        &:hover {
+            background: $bulls-red-dark-base;
+            color: $dark-light;
+        }
+    }
+
+    .subscription-card {
+        background: linear-gradient(135deg, rgba(240, 106, 140, 0.22), rgba(27, 29, 37, 0.92));
+        border-color: rgba(240, 106, 140, 0.35);
+        box-shadow: 0 18px 36px rgba(0, 0, 0, 0.45);
+    }
+
+    .subscription-description {
+        color: $dark-gray;
+    }
+
+    .subscription-form {
+        input[type="email"] {
+            background-color: $dark-light;
+            border-color: rgba(240, 106, 140, 0.38);
+            color: $dark-white;
+
+            &:focus {
+                box-shadow: 0 0 0 3px rgba(240, 106, 140, 0.32);
+            }
+        }
+
+        button {
+            background-color: $bulls-red-dark-base;
+
+            &:hover {
+                background-color: lighten($bulls-red-dark-base, 5%);
+            }
+        }
+    }
+
+    .header-subtitle {
+        color: $dark-gray;
+    }
+}
+
+.tags-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.75rem;
+    margin-top: 2rem;
+}
+
+.tag-card {
+    padding: 1.5rem;
+    border-radius: 14px;
+    border: 1px solid rgba(67, 70, 72, 0.1);
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 12px 24px rgba(13, 18, 43, 0.08);
+    transition: transform 150ms ease, box-shadow 150ms ease;
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 30px rgba(13, 18, 43, 0.12);
+    }
+}
+
+.tag-card-title {
+    margin: 0 0 0.75rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+
+    a {
+        color: $bulls-red;
+        text-decoration: none;
+
+        &:hover {
+            color: $bulls-red-hover;
+        }
+    }
+}
+
+.tag-posts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        margin-bottom: 0.85rem;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        a {
+            color: $black;
+            text-decoration: none;
+            font-weight: 500;
+
+            &:hover {
+                color: $bulls-red;
+            }
+        }
+    }
+}
+
+.tag-post-date {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: $gray;
+}
+
+.header-subtitle {
+    margin-top: 0.5rem;
+    color: $gray;
+}
+
+.dark {
+    .tag-card {
+        border-color: rgba(234, 234, 234, 0.18);
+        background: rgba(19, 20, 24, 0.9);
+        box-shadow: 0 18px 38px rgba(0, 0, 0, 0.45);
+    }
+
+    .tag-post-date {
+        color: $dark-gray;
+    }
+
+    .tag-posts li a {
+        color: $dark-white;
+
+        &:hover {
+            color: $bulls-red-dark-base;
+        }
+    }
+}

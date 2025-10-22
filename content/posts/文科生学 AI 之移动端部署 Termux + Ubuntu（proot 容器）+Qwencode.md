@@ -1,8 +1,12 @@
-
 ---
 title: "文科生学 AI 之移动端部署 Termux+ Ubuntu（proot 容器）+Qwencode"
 date: 2025-10-13T08:26:09+08:00
 draft: false
+tags:
+  - AI学习
+  - Termux
+  - 移动开发
+  - Qwen
 ---
 
 文科生学 AI 之移动端部署 **Termux** + Ubuntu（proot 容器）+Qwencode
